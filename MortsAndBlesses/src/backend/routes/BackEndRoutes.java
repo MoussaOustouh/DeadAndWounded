@@ -56,6 +56,7 @@ public class BackEndRoutes {
 	
 	// {DELETE} had route mlli aysaliw l jeu ghadi nsift lik {'room'} bach tms7 room
 	// khasni nsift token
+	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	public static String jouer_fin="jouer/fin";
 	
 	
@@ -79,10 +80,12 @@ public class BackEndRoutes {
 	//khasni nsift token
 	// (2) ila sift {'id_u'} 3tini ghir dyawl dak l user
 	// (3) ila sift {'id_u', 'last':'last'} 3tini ghir lekhera
-	public static String historiquecon_get="/historique_con/get";
+	public static String historique_con_get="/historique_con/get";
+	
 	
 	// {POST} had route bach n ajoutew f table 'historique_con'
-	// ansift lik	{'id_c', 'id_u', 'connexion'}  +  token
+	//@@@@@@@@@@@@@@@@@@@@
+	// ansift lik	{'id_u', 'connexion'}  +  token
 	public static String historique_con_add="/historique_con/add";
 	
 	// {DELETE} ansift lik {'id_c'} o token o supprimeh b 'id_c'

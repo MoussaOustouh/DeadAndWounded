@@ -2,7 +2,11 @@ package backend.servlets;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 
+import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
 import javax.servlet.ServletException;
@@ -14,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import backend.modele.Connexion;
 import backend.modele.dal.Historique_conDAO;
 import backend.modele.module.Historique_con;
+import backend.modele.module.Historique_jeu;
+import backend.routes.BackEndRoutes;
 
 /**
  * Servlet implementation class Historique_conServlet
@@ -26,6 +32,7 @@ public class Historique_conServlet extends HttpServlet {
 	private Historique_con hCon;
 	private JsonArrayBuilder jab;
 	private JsonObjectBuilder job;
+	private ArrayList<Historique_con> list;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -46,30 +53,78 @@ public class Historique_conServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		if(request.getServletPath().toLowerCase().equals(BackEndRoutes.historique_con_get)) {
+			if(request.getParameter("id_u")!=null && request.getParameter("last")!=null) {
+				hCon=hConDAO.find("id_u='"+request.getParameter("id_u")+"'", "order by id_u DESC");
+				
+				response.getWriter().append(hCon.toJSON().toString());
+			}
+			else if(request.getParameter("id_u")!=null) {
+				list=hConDAO.findAll("id_u='"+request.getParameter("id_u")+"'", "");
+				
+				jab=Json.createArrayBuilder();
+				for (Historique_con h : list) {
+					jab.add(h.toJSON());
+				}
+				
+				Json.createWriter(response.getWriter()).write(jab.build());
+			}
+			else {
+				list=hConDAO.findAll("", "");
+				
+				jab=Json.createArrayBuilder();
+				for (Historique_con h : list) {
+					jab.add(h.toJSON());
+				}
+				
+				Json.createWriter(response.getWriter()).write(jab.build());
+			}
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		if(request.getServletPath().toLowerCase().equals(BackEndRoutes.historique_con_add)) {
+			if (request.getParameter("id_u")!=null && request.getParameter("connexion")!=null) {
+				hCon=new Historique_con();
+				hCon.setId_u(Integer.parseInt(request.getParameter("id_u")));
+				hCon.setConnexion(Timestamp.valueOf(request.getParameter("connexion")));
+				
+				hConDAO.insert(hCon);
+			}
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		if(request.getServletPath().toLowerCase().equals(BackEndRoutes.historique_con_add)) {
+			if (request.getParameter("id_c")!=null && request.getParameter("id_u")!=null
+				&& request.getParameter("connexion")!=null && request.getParameter("deconnexion")!=null) {
+				
+				hCon=new Historique_con();
+				hCon.setId_c(Integer.parseInt(request.getParameter("id_u")));
+				hCon.setId_u(Integer.parseInt(request.getParameter("id_u")));
+				hCon.setConnexion(Timestamp.valueOf(request.getParameter("connexion")));
+				hCon.setDeconnexion(Timestamp.valueOf(request.getParameter("deconnexion")));
+				
+				hConDAO.update(hCon, "id_c='"+request.getParameter("id_c")+"'");
+			}
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
 	 */
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		if(request.getServletPath().toLowerCase().equals(BackEndRoutes.historique_con_delete)) {
+			if (request.getParameter("id_c")!=null) {
+				hConDAO.delete("id_c='"+request.getParameter("id_c")+"'");
+			}
+		}
 	}
 
 }
