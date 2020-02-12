@@ -11,7 +11,7 @@ public class Historique_con implements java.io.Serializable  {
 	private int id_c;
 	private int id_u;
 	private java.sql.Timestamp connexion;
-	private java.sql.Timestamp deconnexion;
+	private java.sql.Timestamp deconnexion;q
 
 
 	public Historique_con() {
