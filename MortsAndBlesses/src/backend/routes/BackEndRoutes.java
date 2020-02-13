@@ -3,7 +3,7 @@ package backend.routes;
 
 public class BackEndRoutes {
 	//hada route vers server
-	public static String server="http://localhost";
+	public static String server="http://mb-backend.herokuapp.com/public";
 	
 	//---------------------------------------------------------------------------------------------------------------
 	// {POST} hada route d'authentification

@@ -1,0 +1,19 @@
+.dark{
+    color: wheat;
+    background-color: darkslategray;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Sigmar+One);
+
+.congrats {
+	margin-right:-20px;
+	position: relative;
+	width: 250px;
+	height: 30px;
+	text-align: center;
+	font-family: 'Sigmar One', cursive;	
+	font-size: 30px;
+}
+
+
+
