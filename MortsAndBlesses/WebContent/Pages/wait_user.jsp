@@ -122,7 +122,7 @@
         	<tr>
         		<td><h2 class="">ROOM ID : <strong><%=session.getAttribute("room") %></strong></h2></td>
         		<td align="left">
-        			<form method="POST" action="">
+        			<form method="GET" action="Profile">
         				<button type="submit" class="btn btn-danger"  style="">Sortie</button>
         			</form>
         		</td>
@@ -140,11 +140,9 @@
     	<h3 style="text-align: center;">Patientez svp ...</h3>
     	<center><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></center>
     </div>
-    <!--Fin-->
+    <!-- Fin de page -->
     <!-- script -->
     <script src="../MortsAndBlesses/Pages/js/jquery.js"></script>
-    <script src="js/jquery.js"></script>
-
     <script src="../MortsAndBlesses/Pages/js/bootstrap.js"></script>
     <!-- btn jcript -->
     <script src="../MortsAndBlesses/Pages/js/btnMusic.js"></script>

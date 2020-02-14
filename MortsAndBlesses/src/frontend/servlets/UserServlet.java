@@ -23,7 +23,7 @@ import frontend.tools.HttpUtility;
 
 
 @WebServlet(urlPatterns = { "/Login", "/Register", "/Users", "/Users/profile", "/Users/edit", "/Users/delete",
-		"/Register/check_username", "/Register/check_email" })
+		"/Register_check_username", "/Register_check_email" })
 public class UserServlet extends HttpServlet {
 
 

@@ -19,8 +19,7 @@ import frontend.tools.TokenParse;
  * Servlet implementation class GameServlet
  */
 
-@ServerEndpoint("/Game/websocket")
-@WebServlet(urlPatterns= {"/Game/generate_room", "/Game/join_room", "/Game/choose_nombre", "/Game/destroy_room"})
+@WebServlet(urlPatterns= {"/Game_generate_room", "/Game_join_room", "/Game_choose_nombre", "/Game_destroy_room"})
 public class GameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

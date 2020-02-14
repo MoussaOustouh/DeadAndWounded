@@ -106,7 +106,7 @@
             </div>
         </form>
         <br>
-            <form action="Game/generate_room">
+            <form action="Game_generate_room">
                 <span>Cree un room :</span><input type="submit" class="button "
                     style="float: right; background-color: green; border-bottom: 1px solid green" value="Crée une ROOM"></input><br>
             </form>
