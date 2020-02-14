@@ -55,6 +55,7 @@ public class UserDAO implements DAO<User>{
 			pstm.setInt(9, o.getPoints());
 			pstm.setInt(10, o.getParties_gagnees());
 			pstm.setInt(11, o.getParties_perdues());
+			pstm.setInt(12, o.getEtat());
 			pstm.setInt(13, o.getPourcentage_reussite());
 			pstm.executeUpdate();
 		} catch (java.sql.SQLException e) { e.printStackTrace(); }

@@ -26,7 +26,11 @@
 			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
+<<<<<<< HEAD
 		<img src="../MortsAndBlesses/Pages/images/p.png" height="80px">
+=======
+		<img src="../MortsAndBlesses/Pages/p.png" height="80px">
+>>>>>>> branch 'master' of https://github.com/MoussaOustouh/DeadAndWounded.git
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
 			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 				<li class="nav-item active"><a class="nav-link" href="#">Home
