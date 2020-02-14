@@ -63,7 +63,7 @@ public class PageServlet extends HttpServlet {
 			HttpServletRequest request1 = (HttpServletRequest) request;
 			HttpSession session = request1.getSession();
 			
-			// ila mcha lprofile room lli kan fiha ate7yed
+			// ila mcha lprofile room lli kan fiha ate7yed.
 			if(session.getAttribute("room")!=null) {
 				Rooms.removeJouer((String)session.getAttribute("room"));
 				session.setAttribute("room", null);
