@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonValue;
 
 public class Historique_jeu implements java.io.Serializable  {
 	private int id_j;
@@ -94,8 +95,21 @@ public class Historique_jeu implements java.io.Serializable  {
 		job.add("id_j", this.id_j);
 		job.add("id_u", this.id_u);
 		job.add("id_adversaire", this.id_adversaire);
-		job.add("date_et_heure", this.date_et_heure.toString());
-		job.add("temps_passe", this.temps_passe.toString());
+		
+		if(this.date_et_heure==null) {
+			job.add("date_et_heure", JsonValue.NULL);
+		}
+		else {
+			job.add("date_et_heure", this.date_et_heure.toString());
+		}
+		
+		if(this.temps_passe==null) {
+			job.add("temps_passe", JsonValue.NULL);
+		}
+		else {
+			job.add("temps_passe", this.temps_passe.toString());
+		}
+		
 		job.add("nombre_de_tours", this.nombre_de_tours);
 		job.add("gagner", this.gagner);
 		

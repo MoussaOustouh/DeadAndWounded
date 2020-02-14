@@ -5,6 +5,7 @@ import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 
 public class Game {
+	//hadi kat9arn ra9m lli khtar user_1 o ra99m lli khtar lih l user_2 o katreturner  {"morts": v_morts, "blesses": v_blesses}
 	public static JsonObject analyse(int userNumber, int compareWith) {
 		int morts=0, blesses=0;
 		String s1=""+userNumber, s2=""+compareWith;
@@ -25,15 +26,9 @@ public class Game {
 		 return job.build();
 	}
 	
+	//hadi kat9arn ra9m lli khtar user_1 o ra99m lli khtar lih l user_2 o katreturner lik true ila kano b7al b7al o false ila kano mkhtalfin
 	public static boolean didWin(int userNumber, int compareWith) {
-		JsonObject jo=Game.analyse(userNumber, compareWith);
-		
-		if(jo.getInt("morts")==4){
-			return true;
-		}
-		else {
-			return false;
-		}
+		return userNumber==compareWith;
 	}
 	
 }

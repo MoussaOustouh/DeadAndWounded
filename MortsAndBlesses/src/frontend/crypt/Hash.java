@@ -4,8 +4,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException; 
 
 public class Hash {
-	// tester    System.out.println(Hash.toSHA_384("password"));    chof wach at3tik b7al lcode li lt7t
-	//a3635f80caa3fab751ae1896486d00ba1cbe9f1ac2435b3aea8f8518663187d520db4b12ce726292707f660a75989690
     public static String toSHA_384(String passwordToHash) {
     	byte[] salt = new byte[16];
         
@@ -31,5 +29,8 @@ public class Hash {
         }
         return generatedPassword;
     }
-	
+    
+    public static boolean isEquals_SHA_384(String hash, String passwordToCompare) {
+    	return hash.equals(Hash.toSHA_384(passwordToCompare));
+    }
 }

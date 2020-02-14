@@ -70,7 +70,14 @@ public class Historique_con implements java.io.Serializable  {
 		
 		job.add("id_c", this.id_c);
 		job.add("id_u", this.id_u);
-		job.add("connexion", this.connexion.toString());
+		
+		if(this.connexion==null) {
+			job.add("connexion", JsonValue.NULL);
+		}
+		else {
+			job.add("connexion", this.connexion.toString());
+		}
+		
 		if (this.deconnexion == null) {
 			job.add("deconnexion", JsonValue.NULL);
 		}

@@ -36,7 +36,7 @@ public class User implements java.io.Serializable  {
 	
 	public User(JsonObject user) {
 		if (user.containsKey("id_u")) {
-			this.id_u=user.getInt("id_u");
+			this.id_u=Integer.parseInt(user.getString("id_u"));
 		}
 		this.username=user.getString("username");
 		this.password=user.getString("password");

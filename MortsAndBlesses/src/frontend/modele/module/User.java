@@ -34,14 +34,14 @@ public class User implements java.io.Serializable  {
 		this.pourcentage_reussite=0;
 	}
 	
-	public User(JsonObject user) {
+	public User(JsonObject user) {System.out.println(user.toString());
 		if (user.containsKey("id_u")) {
 			this.id_u=user.getInt("id_u");
 		}
 		this.username=user.getString("username");
 		this.password=user.getString("password");
 		this.nom=user.getString("nom");
-		this.prenom=user.getString("username");
+		this.prenom=user.getString("prenom");
 		this.email=user.getString("email");
 		this.date_de_naissance=Date.valueOf(user.getString("date_de_naissance"));
 		this.image=user.getString("image");

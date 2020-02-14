@@ -97,7 +97,13 @@ public class Jouer implements java.io.Serializable  {
 		job.add("room", this.room);
 		job.add("nombre_u1", this.nombre_u1);
 		job.add("nombre_u2", this.nombre_u2);
-		job.add("date_et_heure", this.date_et_heure.toString());
+		if(this.date_et_heure==null) {
+
+			job.add("date_et_heure", JsonValue.NULL);
+		}
+		else {
+			job.add("date_et_heure", this.date_et_heure.toString());
+		}
 		job.add("nombre_de_tours", this.nombre_de_tours);
 		
 		return job.build();
