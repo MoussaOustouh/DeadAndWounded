@@ -80,7 +80,7 @@
 					<label class="form-check-label" for="exampleCheck1">Check
 						me out</label>
 				</div>
-				<button type="submit" class="btn btn-primary"  style="width: 100px;">LOGIN</button>
+				<button type="submit" class="button "  style="width: 100px;">LOGIN</button>
 				<span style="padding-left: 30px; padding-right: 30px;"> or </span>
 				<a class="btn btn-success" href="Register"  style="width: 100px;">SIGN UP</a>
 			</form>

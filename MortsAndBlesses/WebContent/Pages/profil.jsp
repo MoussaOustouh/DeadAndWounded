@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../MortsAndBlesses/Pages/css/btn.css" />
     <link rel="stylesheet" type="text/css" href="../MortsAndBlesses/Pages/mycss.css" />
 
-    <title>Document</title>
+    <title>Profil : ${user.prenom} ${user.nom} </title>
 </head>
 
 <body>
@@ -21,8 +21,8 @@
             aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        		<img src="../MortsAndBlesses/Pages/images/p.png" height="80px">
-        
+        <img src="../MortsAndBlesses/Pages/images/p.png" height="80px">
+
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -35,7 +35,7 @@
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Jeux</a>
                 </li>
-            
+
             </ul>
             <form methode="GET" action="/MortsAndBlesses/Deconnecte" class="form-inline my-2 my-lg-0">
                 <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Déconnecté</button>
@@ -66,33 +66,38 @@
             <h1 class="display-4">Profil :</h1>
             <img class="img-fluid" src="https://cdn2.iconfinder.com/data/icons/fantasy-characters/512/dwarf1-512.png"
                 width="180px" height="180px" alt="image profil">
-          <a style="float: right;" href="/MortsAndBlesses/Information" >Modifier votre Information</a>
+            <a style="float: right;" href="/MortsAndBlesses/Information" class="btn btn-success">Modifier votre Information</a>
             <center>
-                <div class="row">
-                    <div class="col-sm-5">
+                <div class="row" style="border: 1px oldlace; padding: 20px;">
+                    <div class="col-sm-3">
                         <span> Nom : </span> <br />
                         <span> Prnom : </span> <br />
                         <span> Date de naissance : </span> <br />
                         <span> Email : </span> <br />
-                         <span> points : </span> <br />
-                     	<span> Parties gagnees : </span> <br />
-                     	<span> Parties_perdues : </span> <br />
-                     	<span> Pourcentage reussite  : </span> <br />
-                                                
-                        
+                       
+
                     </div>
-                    <div class="col-sm-5">
+                    <div class="col-sm-3">
 
                         <strong>${user.nom}</strong> <br />
                         <strong>${user.prenom}</strong> <br />
                         <strong>${user.date_de_naissance}</strong> <br />
                         <strong>${user.email}</strong> <br />
-                        <strong>${user.points}</strong> <br />
-                                                <strong>${user.parties_gagnees}</strong> <br />
-                                                <strong>${user.parties_perdues}</strong> <br />
-                                                <strong>${user.pourcentage_reussite}</strong> <br />
                         
                     </div>
+                    <div class="col-sm-3">
+                        <span> points : </span> <br />
+                        <span> Parties gagnees : </span> <br />
+                        <span> Parties_perdues : </span> <br />
+                        <span> Pourcentage reussite : </span> <br />
+
+                    </div>
+                    <div class="col-sm-3">
+                    <strong>${user.points}</strong> <br />
+                    <strong>${user.parties_gagnees}</strong> <br />
+                    <strong>${user.parties_perdues}</strong> <br />
+                    <strong>${user.pourcentage_reussite}</strong> <br />
+                </div>
                 </div>
             </center>
             <hr class="my-4">
@@ -106,18 +111,20 @@
             </div>
         </form>
         <br>
-            <form action="Game_generate_room">
-                <span>Cree un room :</span><input type="submit" class="button "
-                    style="float: right; background-color: green; border-bottom: 1px solid green" value="Crée une ROOM"></input><br>
-            </form>
-            <br>
-            <form>
-                <output>Lancer un jeux avec la machine :</output><input style="float: right;" type="button" class="button" value="Star"></input><br>
-            </form>
-<br>
-<br>
-<br>
-</div>
+        <form action="Game_generate_room">
+            <span>Cree un room :</span><input type="submit" class="button "
+                style="float: right; background-color: green; border-bottom: 1px solid green"
+                value="Crée une ROOM"></input><br>
+        </form>
+        <br>
+        <form>
+            <output>Lancer un jeux avec la machine :</output><input style="float: right;" type="button" class="button"
+                value="Star"></input><br>
+        </form>
+        <br>
+        <br>
+        <br>
+    </div>
 
     </div>
     <!-- Fin de page -->

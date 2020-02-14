@@ -109,7 +109,7 @@
 				</div>
 				<div class="form-row">
 					<div style="margin-left: auto; margin-right: auto;">
-						<button type="submit" class="btn btn-primary" style="width: 100px;">SIGN UP!</button>
+						<button type="submit" class="button" style="width: 100px;">SIGN UP!</button>
 						<span style="padding-left: 30px; padding-right: 30px;"> or </span>
 						<a class="btn btn-success" href="Login"  style="width: 100px;">LOGIN</a>
 					</div>
