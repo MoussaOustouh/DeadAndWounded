@@ -112,28 +112,25 @@ public class UsersServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		System.out.println(request.getParameter("username")+request.getParameter("password")+request.getParameter("email")+request.getParameter("prenom")+request.getParameter("nom")+request.getParameter("date_de_naissance"));
-		
 		// hadi bach ndir l'auth
 		if(request.getServletPath().toLowerCase().equals(BackEndRoutes.login)) {
 			// had le cas howa bach ghadi ntester wach l username o lpass lli dkhlhom lclient kanynin f l base de donner
 			if (request.getParameter("username")!=null && request.getParameter("password")!=null) {
 				user=userDAO.find("username='"+request.getParameter("username")+"' AND password='"+request.getParameter("password")+"'", "");
-				System.out.println(request.getParameter("username"));
 				if (user.getId_u()!=0) {
-//					jab=Json.createArrayBuilder();
+					jab=Json.createArrayBuilder();
+					job=Json.createObjectBuilder();
+					
 					//---  hna rah khass i 3tik ghir token o nta t7leha o tchof l user lli fiha.
 					//Ana ma3arfch ki ndir lblan d token b JAVA dakchi 3lach sifthom lik haka
 					//------------------------------------------------------------------------
-//					job=Json.createObjectBuilder();
-//					job.add("token", "AAAAAAAA").build();
-//					//jab.add(token);
-					JsonObjectBuilder json = Json.createObjectBuilder();
-					json.add("token", "AAAAAAAA");
+					JsonObject token=job.add("token", "AAAAAAAA").build();
+					jab.add(token);
 					
+					job=Json.createObjectBuilder();
+					jab.add(job.add("user", user.toJSON()));
 					
-					Json.createWriter(response.getWriter()).write(json.build());
+					Json.createWriter(response.getWriter()).write(jab.build());
 					//------------------------------------------------------------------------
 				}
 				else {
@@ -145,11 +142,9 @@ public class UsersServlet extends HttpServlet {
 		}
 		
 		// hadi bach ndir l'inscription
-		 if(request.getServletPath().toLowerCase().equals(BackEndRoutes.register)) {	
+		else if(request.getServletPath().toLowerCase().equals(BackEndRoutes.register)) {	
 			if (request.getParameter("username")!=null && request.getParameter("password")!=null && request.getParameter("nom")!=null
 				&& request.getParameter("prenom")!=null && request.getParameter("email")!=null && request.getParameter("date_de_naissance")!=null) {
-				
-				System.out.println("**********************");
 				
 				jab=Json.createArrayBuilder();
 				job=Json.createObjectBuilder();

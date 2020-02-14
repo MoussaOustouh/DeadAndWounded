@@ -36,7 +36,7 @@ public class User implements java.io.Serializable  {
 	
 	public User(JsonObject user) {System.out.println(user.toString());
 		if (user.containsKey("id_u")) {
-			this.id_u=Integer.parseInt(user.getString("id_u"));
+			this.id_u=user.getInt("id_u");
 		}
 		this.username=user.getString("username");
 		this.password=user.getString("password");
@@ -45,11 +45,11 @@ public class User implements java.io.Serializable  {
 		this.email=user.getString("email");
 		this.date_de_naissance=Date.valueOf(user.getString("date_de_naissance"));
 		this.image=user.getString("image");
-		this.points=Integer.parseInt(user.getString("points"));
-		this.parties_gagnees=Integer.parseInt(user.getString("parties_gagnees"));
-		this.parties_perdues=Integer.parseInt(user.getString("parties_perdues"));
-		this.etat=Integer.parseInt(user.getString("etat"));
-		this.pourcentage_reussite=Integer.parseInt(user.getString("pourcentage_reussite"));
+		this.points=user.getInt("points");
+		this.parties_gagnees=user.getInt("parties_gagnees");
+		this.parties_perdues=user.getInt("parties_perdues");
+		this.etat=user.getInt("etat");
+		this.pourcentage_reussite=user.getInt("pourcentage_reussite");
 	}
 
 	public int getId_u(){
