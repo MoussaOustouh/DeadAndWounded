@@ -5,6 +5,8 @@ public class routes {
 	public static String profil="/profil";
 	public static String deconnecte="/deconnecte";
 	public static String mise_ajour="/information";
+	public static String Saisir="/saisir";
+	public static String wait_user="/wait_user";
 
 
 	

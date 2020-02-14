@@ -74,7 +74,7 @@
 		<div class="container d-flex justify-content-center"
 			style="background-color: rgba(51, 170, 51, .1); width: 400px;">
 			<form method="POST"
-				action="http://localhost:8091/MortsAndBlesses/Login">
+				action="/MortsAndBlesses/Login">
 				<div class="form-group">
 					<label for="exampleInputEmail1">Username</label> <input type="text"
 						class="form-control " name="username" id="exampleInputEmail1"

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html lang="en">
 
 <head>
@@ -30,14 +30,9 @@
                 <li class="nav-item active"><a class="nav-link" href="#">Home
                         <span class="sr-only">(current)</span>
                     </a></li>
-                <li class="nav-item"><a class="nav-link disabled" href="/signup.html" tabindex="-1"
-                        aria-disabled="true">Crée
-                        Compte</a></li>
 
             </ul>
-            <form methode="get" action="/MortsAndBlesses/Deconnecte" class="form-inline my-2 my-lg-0">
-                <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Déconnecté</button>
-            </form>
+            <form class="form-inline my-2 my-lg-0">
                 <audio id="track">
                     <!-- <source src="http://basichow.com/asserts/interlude.mp3" type="audio/mpeg" /> -->
                     <source src="https://designshack.net/tutorialexamples/html5-audio-player/media/evidence-song.mp3"
@@ -47,6 +42,7 @@
                 <div id="player-container">
                     <div id="play-pause" class="play">Play</div>
                 </div>
+            </form>
             <div class="custom-control custom-switch" style="margin-left: 10px;">
                 <input type="checkbox" class="custom-control-input" id="customSwitch1"> <label
                     class="custom-control-label" for="customSwitch1">Dark mode</label>
@@ -55,50 +51,72 @@
     </nav>
     <!-- fin navbar -->
     <!--contenue -->
+    <br />
+    <br />
     <div class="container ">
-        <h1 class="d-flex justify-content-center">Modifier votre information</h1>
+        <h1 class="d-flex justify-content-center">Choisir Votre nembere pour jouer</h1>
         <div class="container d-flex justify-content-center"
-            style="background-color: rgba(51, 170, 51, .1); width: 400px;">
-            <form method="POST" action="/MortsAndBlesses/Information">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Nom</label> <input value="${user.nom}" type="text" class="form-control "
-                        id="exampleInputEmail1" placeholder="Enter nom" name="nom" required>
-
+            style="background-color: rgba(51, 170, 51, .1); width: 700px;">
+            <form method="POST" action="=/MortsAndBlesses/Game"  name="formSaisie" >
+              <br>
+                <div class="row">
+                    <div class="col-3 "><input min="1" max="9"  class="form-control" type="number"
+                            id="input1" /></div>
+                    <div class="col-3 "><input min="1" max="9" class="form-control" type="number"
+                            id="input2" /></div>
+                    <div class="col-3 "><input  min="1" max="9" class="form-control" type="number"
+                            id="input3" /></div>
+                    <div class="col-3 "><input min="1" max="9" class="form-control" type="number"
+                            id="input4" /></div>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Prenom</label> <input value="${user.prenom}" type="text" class="form-control "
-                        id="exampleInputEmail1" name="prenom" placeholder="Enter email" required>
+                <br>
+                <div class="row">
+                <div class="col-5"></div>
+                <button style=" position: relative;" type="button"class="button" onclick="virification()"  >Play</button>
+                
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email</label> <input type="email" value="${user.email}" class="form-control "
-                        id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email"
-                        required>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Username</label> <input type="text" value="${user.username}" class="form-control"
-                        name="username" id="exampleInputPassword1" placeholder="Username" required>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label> <input type="password" value="${user.password}" class="form-control"
-                        name="password" id="exampleInputPassword1" placeholder="Password" required>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Date De naissance</label> <input type="date" value="${user.date_de_naissance}" class="form-control"
-                        name="date_de_naissance" id="exampleInputPassword1" placeholder="date_de_naissance" required>
-                </div>
-                <button type="submit" class="btn btn-primary">SIGN UP!</button>
-            </form>
-
+                <br />
+                <br />
         </div>
+        </form>
+
+    </div>
     </div>
     </div>
     <!--Fin-->
     <!-- script -->
     <script src="../MortsAndBlesses/Pages/js/jquery.js"></script>
+    <script src="js/jquery.js"></script>
+
     <script src="../MortsAndBlesses/Pages/js/bootstrap.js"></script>
     <!-- btn jcript -->
     <script src="../MortsAndBlesses/Pages/js/btnMusic.js"></script>
     <script src="../MortsAndBlesses/Pages/js/othmanejs.js">
+    </script>
+    <script>
+        
+        function virification (){
+        var input1 = document.getElementById("input1");
+        var input2 = document.getElementById("input2");
+        var input3 = document.getElementById("input3");
+        var input4 = document.getElementById("input4");
+        const re = /^[1-9\b]+$/;
+        if ((input1.value !== "" ) || (input2.value !== "" ) || (input3.value !== '') || (input4.value !== '')) {
+            if (input1.value === input2.value || input1.value === input3.value || input1.value === input4.value || input2.value === input3.value || input2.value === input4.value || input3.value === input4.value) {
+                alert("Ereur des nembres sont egeaux");
+            }
+            else {
+                if ((input1.value>0 && input1.value < 9) && (input2.value>0 && input2.value<9 ) && (input3.value>0 && input3.value <9 )&& (input4.value>0 && input4.value<9 )) {
+                document.formSaisie.submit();}
+                else {
+                    alert("Ereur des Nembres sont non compatible avec les regles de jeux");
+                }
+            }
+        }
+        else
+            alert("Ereur un ou des champs vide");
+        }
+
 
     </script>
 </body>
