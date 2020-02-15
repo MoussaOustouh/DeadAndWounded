@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../MortsAndBlesses/Pages/css/btn.css" />
     <link rel="stylesheet" type="text/css" href="../MortsAndBlesses/Pages/mycss.css" />
 
-    <title>Profil : ${user.prenom} ${user.nom} </title>
+    <title>${user.prenom} ${user.nom} - Profile</title>
 </head>
 
 <body>
@@ -61,69 +61,105 @@
 
     <!-- boody de page -->
     <div class="container">
-        <div class="jumbotron">
+    	<br>
+        <div class="jumbotron" style="padding: 2rem 2rem 1rem 2rem; border-radius: 20px;">
+        
+        	<div class="row">
+			  	<div class="col">
+					<img class="img-fluid" src="Pages/images/avatars/avatar1.png" width="180px" height="180px" alt="image profil">
+					<br><br>
+					<a href="/MortsAndBlesses/Information" class="btn btn-success">Modifier les informations</a>
+				</div>
+			  	<div class="col-8">
+			  		<div class="form-row">
+						<div class="form-group  col-md-5">
+							<label for="exampleInputEmail1">Nom et Prenom</label> <input type="text"
+								class="form-control " id="exampleInputEmail1"readonly value="${user.nom} ${user.prenom}">
+		
+						</div>
+						<div style="padding-left: 40px;"></div>
+						<div class="form-group  col-md-5">
+							<label for="exampleInputEmail1">Date de naissance</label> <input type="text"
+								class="form-control " id="exampleInputEmail1" readonly value="${user.date_de_naissance}">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group  col-md-5">
+							<label for="exampleInputEmail1">Email</label> <input type="email"
+								class="form-control " id="exampleInputEmail1"
+								aria-describedby="emailHelp" readonly value="${user.email}">
+						</div>
+						<div style="padding-left: 40px;"></div>
+						<div class="form-group  col-md-5">
+							<label for="exampleInputPassword1">Username</label> <input
+								type="text" class="form-control" readonly value="${user.username}">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group  col-md-3">
+							<label for="exampleInputPassword1">Parties gagnees</label> <input
+								type="text" class="form-control" readonly value="${ user.parties_gagnees }">
+						</div>
+						<div style="padding-left: 20px;"></div>
+						<div class="form-group  col-md-3">
+							<label for="exampleInputPassword1">Parties perdues</label> <input
+								type="text" class="form-control" readonly value="${ user.parties_perdues }">
+						</div>
+						<div style="padding-left: 20px;"></div>
+						<div class="form-group  col-md-2">
+							<label for="exampleInputPassword1">Points</label> <input
+								type="text" class="form-control" readonly value="${ user.points }">
+						</div>
+						<div style="padding-left: 20px;"></div>
+						<div class="form-group  col-md-2">
+							<label for="exampleInputPassword1">Pourcentage</label> <input
+								type="text" class="form-control" readonly value="${ user.pourcentage_reussite }">
+						</div>
+					</div>
+			  	</div>
+			</div>
 
-            <h1 class="display-4">Profil :</h1>
-            <img class="img-fluid" src="https://cdn2.iconfinder.com/data/icons/fantasy-characters/512/dwarf1-512.png"
-                width="180px" height="180px" alt="image profil">
-            <a style="float: right;" href="/MortsAndBlesses/Information" class="btn btn-success">Modifier votre Information</a>
-            <center>
-                <div class="row" style="border: 1px oldlace; padding: 20px;">
-                    <div class="col-sm-3">
-                        <span> Nom : </span> <br />
-                        <span> Prnom : </span> <br />
-                        <span> Date de naissance : </span> <br />
-                        <span> Email : </span> <br />
-                       
-
-                    </div>
-                    <div class="col-sm-3">
-
-                        <strong>${user.nom}</strong> <br />
-                        <strong>${user.prenom}</strong> <br />
-                        <strong>${user.date_de_naissance}</strong> <br />
-                        <strong>${user.email}</strong> <br />
-                        
-                    </div>
-                    <div class="col-sm-3">
-                        <span> points : </span> <br />
-                        <span> Parties gagnees : </span> <br />
-                        <span> Parties_perdues : </span> <br />
-                        <span> Pourcentage reussite : </span> <br />
-
-                    </div>
-                    <div class="col-sm-3">
-                    <strong>${user.points}</strong> <br />
-                    <strong>${user.parties_gagnees}</strong> <br />
-                    <strong>${user.parties_perdues}</strong> <br />
-                    <strong>${user.pourcentage_reussite}</strong> <br />
-                </div>
-                </div>
-            </center>
-            <hr class="my-4">
-        </div>
         <br>
-        <h1>jeux :</h1>
-        <form>
-            <div class="">
-                <input class="form-control col-8    " type="search" placeholder="Search" aria-label="Search">
-                <input style="float: right; margin-top: -30px;" class="button" type="submit" value="Join"></input>
-            </div>
-        </form>
-        <br>
-        <form action="Game_generate_room">
-            <span>Cree un room :</span><input type="submit" class="button "
-                style="float: right; background-color: green; border-bottom: 1px solid green"
-                value="Crée une ROOM"></input><br>
-        </form>
-        <br>
-        <form>
-            <output>Lancer un jeux avec la machine :</output><input style="float: right;" type="button" class="button"
-                value="Star"></input><br>
-        </form>
-        <br>
-        <br>
-        <br>
+        <hr>
+        <h1>Jeux</h1>
+        
+    	<div class="container">
+    		<div class="form-row">
+			    <div class="col-md-3 mb-3 flexBox" style="display: flex; flex-flow: row wrap; justify-content: center;">
+			      	<form action="Game_generate_room" method="POST">
+			            <input type="submit" class="button "
+			                style=" background-color: #007bff; width:150px; border-bottom: 1px solid #007bff;"
+			                value="Crée une ROOM"></input><br>
+			        </form>
+			    </div>
+			    <div class="col-md-6 mb-3 flexBox" style="display: flex; flex-flow: row wrap; justify-content: center;">
+			        <form action="Game_join_room" method="POST" class="col-md-12 mb-3">
+			        	<div class="form-row">
+				        	<div class="col-md-6">
+				        		<input class="form-control" name="room" type="text" placeholder="ROOM ID" required="required" pattern="[A-Za-z0-9]{4}">
+						    </div>
+				        	<div class="col-md-6">
+				        		<input class="button" style="width:150px; background-color: #17a2b8; border-bottom: 1px solid #17a2b8;" type="submit" value="Join to ROOM"></input>
+						    </div>
+					    </div>
+			        </form>
+			        <div class="col-md-12" style="display: flex; flex-flow: row wrap; justify-content: center; color: red;">
+			        	<% 
+				        	session=request.getSession();
+				        	if(session.getAttribute("error")!=null){
+				        		out.println(session.getAttribute("error"));
+				        	} 
+			        	%>
+			        </div>
+			    </div>
+			    <div class="col-md-3 mb-3 flexBox" style="display: flex; flex-flow: row wrap; justify-content: center;">
+				      
+			        <form  method="POST">
+			            <input style="width:150px; background-color: green; border-bottom: 1px solid green;" type="button"  class="button" value="Contre l'ordinateur" ></input><br>
+			        </form>
+			    </div>
+			  </div>
+    	</div>
     </div>
 
     </div>

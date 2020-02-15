@@ -1,10 +1,17 @@
 package frontend.game;
 
+import java.util.ArrayList;
+
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 
+import frontend.modele.module.User;
+
 public class Game {
+	
+	public static ArrayList<User> usersWaitingToPlay=new ArrayList<User>();
+	
 	//hadi kat9arn ra9m lli khtar user_1 o ra99m lli khtar lih l user_2 o katreturner  {"morts": v_morts, "blesses": v_blesses}
 	public static JsonObject analyse(int userNumber, int compareWith) {
 		int morts=0, blesses=0;

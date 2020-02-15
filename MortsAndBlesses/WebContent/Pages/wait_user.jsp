@@ -117,10 +117,87 @@
     <br />
     <br />
     <div class="container ">
+    	<c:if test="${ jouer.id_u1 != 0 && jouer.id_u2 == 0 }">
+    		<script type="text/javascript">		
+				var url = (location.host+location.pathname).replace("Game_generate_room", "websocketredirection/${jouer.room}/${jouer.id_u1}");
+
+				var webSocket = new WebSocket("ws://"+url);
+		
+				webSocket.onerror = function(event) {
+					onError(event);
+				};
+		
+				webSocket.onopen = function(event) {
+					onOpen(event);
+				};
+		
+				webSocket.onmessage = function(event) {
+					onMessage(event);
+				};
+		
+				function onMessage(event) {
+					if(event.data=="Go to choose number"){
+						location.href=(location.protocol+"//"+location.host+location.pathname).replace("Game_generate_room", "Game_choose_nombre");
+					}
+				}
+		
+				function onOpen(event) {
+					
+				}
+		
+				function onError(event) {
+					alert(event.data);
+				}
+
+				function send() {
+					
+				}
+			</script>
+    	</c:if>
+    	
+    	
+    	<c:if test="${ jouer.id_u2 != 0 }">
+    		<script type="text/javascript">
+				
+				var url = (location.host+location.pathname).replace("Game_join_room", "websocketredirection/${jouer.room}/${jouer.id_u2}");
+
+				var webSocket = new WebSocket("ws://"+url);
+		
+				webSocket.onerror = function(event) {
+					onError(event);
+				};
+		
+				webSocket.onopen = function(event) {
+					onOpen(event);
+				};
+		
+				webSocket.onmessage = function(event) {
+					onMessage(event);
+				};
+		
+				function onMessage(event) {
+					
+				}
+		
+				function onOpen(event) {
+					webSocket.send("Go to choose number");
+					location.href=(location.protocol+"//"+location.host+location.pathname).replace("Game_join_room", "Game_choose_nombre");
+				}
+		
+				function onError(event) {
+					alert(event.data);
+				}
+
+				function send() {
+					
+				}
+			</script>
+    	</c:if>
+    	
    
         <table style="width: 100%;">
         	<tr>
-        		<td><h2 class="">ROOM ID : <strong><%=session.getAttribute("room") %></strong></h2></td>
+        		<td><h2 class="">Room ID : <strong>${jouer.room}</strong></h2></td>
         		<td align="left">
         			<form method="GET" action="Profile">
         				<button type="submit" class="btn btn-danger"  style="">Sortie</button>

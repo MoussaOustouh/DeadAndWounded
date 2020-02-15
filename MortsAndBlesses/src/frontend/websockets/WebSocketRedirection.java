@@ -1,59 +1,43 @@
 package frontend.websockets;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.websocket.OnClose;
+import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
+import frontend.game.Rooms;
+import frontend.modele.module.Jouer;
 
-@ServerEndpoint("/websocketredirection/{from}/{to}")
+
+@ServerEndpoint("/websocketredirection/{room}/{id_u}")
 public class WebSocketRedirection {
 
-	private static Set<Session> clients = Collections.synchronizedSet(new HashSet<Session>());
-	private static Map<Integer, Session> clientsU = new ConcurrentHashMap<>();
+	
 	
 	@OnMessage
-    public void onMessage(String message, Session session, @PathParam("from") int from, @PathParam("to") int to)
-    	throws IOException {System.out.println("room : "+from);
-//		JsonObject json = new JsonParser().parse(message).getAsJsonObject();
-		
-//		synchronized(clients){
-//			// Iterate over the connected sessions
-//			// and broadcast the received message
-//			for(Session client : clients){
-//				if (!client.equals(session)){
-//
-////					client.getBasicRemote().sendText(json.get("txt").getAsString());
-//					client.getBasicRemote().sendText(message);
-//				}
-//			}
-//		}
-    	clientsU.get(to).getBasicRemote().sendText(message);
-    	
-    	
-		
+    public void onMessage(String message, Session session, @PathParam("room") String room, @PathParam("id_u") int id_u) throws IOException {
+    	if(message.equals("Go to choose number")) {
+    		Jouer jouer=Rooms.getJouer(room);
+    		if(jouer!=null) {
+    			UserSocketSession.getSessionById(jouer.getId_u1()).getBasicRemote().sendText(message);
+    		}
+    	}
     }
 	
 	@OnOpen
-    public void onOpen (Session session, @PathParam("from") int from) {
-		// Add session to the connected sessions set
-		clients.add(session);
-		clientsU.put(from, session);
+    public void onOpen (Session session, @PathParam("id_u") int id_u) {
+		UserSocketSession.setSessionById(id_u, session);
+		
+		System.out.println(id_u);
     }
 
     @OnClose
-    public void onClose (Session session, @PathParam("from") int from) {
-    	// Remove session from the connected sessions set
-    	clients.remove(session);
-    	clientsU.remove(from);
+    public void onClose (Session session, @PathParam("id_u") int id_u) {
+    	UserSocketSession.removeSessionById(id_u);
     }
 }

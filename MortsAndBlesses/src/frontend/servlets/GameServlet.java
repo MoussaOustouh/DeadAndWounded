@@ -39,6 +39,13 @@ public class GameServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getServletPath().toLowerCase().equals(FrontEndRoutes.generate_room.toLowerCase())) {
 			HttpServletRequest request1 = (HttpServletRequest) request;
 			HttpSession session = request1.getSession();
@@ -62,35 +69,46 @@ public class GameServlet extends HttpServlet {
 			
 			jouer=Rooms.getJouer(room);
 			
-//				System.out.println(jouer.toString());
-			// hna khsni nsifto lpage fin aytsnna chi wa7d idkhl m3ah
+			if(jouer==null) {
+				response.sendRedirect("Profile");
+			}
+			
 			session=request.getSession();
-			session.setAttribute("id_u1", jouer.getId_u1());
 			
-			// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  zid hadchi
-			// hna ghadi itdar wa7d <script></script>  f "/Pages/wait_user2.jsp" bach idir wa7d WebSocket
-			// bach l user_1 itsnna reponse f socket blli l user_2 tconnecta m3ah f room
-			
-
+			request.setAttribute("jouer", jouer);
 			request.getRequestDispatcher("/Pages/wait_user.jsp").forward(request, response);
+			
+			
 		}
 		else if(request.getServletPath().toLowerCase().equals(FrontEndRoutes.join_room.toLowerCase())) {
-			if(request.getParameter("id_u2")!=null && request.getParameter("room")!=null) {
-				jouer=Rooms.getJouer(request.getParameter("room"));
-				jouer.setId_u2(Integer.parseInt(request.getParameter("id_u2")));
-				
-				Rooms.setJouer(request.getParameter("room"), jouer);
-				
-				// hna khasni n3lmhom bjoj b socket bach imchiw l page fin aykhtaro ra9m
-				session=request.getSession();
-				session.setAttribute("room", jouer.getRoom());
-				session.setAttribute("id_u1", jouer.getId_u1());
-				session.setAttribute("id_u2", jouer.getId_u2());
-				request.getRequestDispatcher("/Pages/wait_user2.jsp").forward(request, response);
-				
-				// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  zid hadchi
-				// hna ghadi itdar wa7d <script></script>  f "/Pages/wait_user2.jsp" bach idir wa7d WebSocket o isft l user_1 blli rah tcoonnecta
-				// bach user_1 imchi l "FrontEndRoutes.choose_number"  o 7tta user_2 imchi liha 
+			if(request.getParameter("room")!=null) {
+				if(Rooms.isThere(request.getParameter("room"))){
+					session=request.getSession();
+					User user = TokenParse.parse((String)session.getAttribute("token"));
+					jouer=Rooms.getJouer(request.getParameter("room"));
+					
+					if(jouer==null) {
+						response.sendRedirect("Profile");
+					}
+					
+					if(jouer.getId_u2()!=0) {
+						session.setAttribute("error", "ROOM est pleine.");
+						response.sendRedirect("Profile");
+					}
+					else {
+						jouer.setId_u2(user.getId_u());
+						
+						Rooms.setJouer(request.getParameter("room"), jouer);
+						
+						request.setAttribute("jouer", jouer);
+						request.getRequestDispatcher("/Pages/wait_user.jsp").forward(request, response);
+					}
+				}
+				else {
+					session=request.getSession();
+					session.setAttribute("error", "ROOM '"+request.getParameter("room")+"' n'existe pas.");
+					response.sendRedirect("Profile");
+				}
 			}
 		}
 		else if(request.getServletPath().toLowerCase().equals(FrontEndRoutes.choose_number.toLowerCase())) {
@@ -116,15 +134,14 @@ public class GameServlet extends HttpServlet {
 			}
 			
 		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		
+		
 		if(request.getServletPath().toLowerCase().equals(FrontEndRoutes.destroy_room.toLowerCase())) {
 			if (request.getParameter("room")!=null) {
 				Rooms.removeJouer(request.getParameter("room"));
+				session.removeAttribute("room");
 				response.sendRedirect("Profile");
 			}
 		}

@@ -14,9 +14,10 @@
 	<script type="text/javascript">
 
 		var url = new URL(location.href);
-		var u = url.searchParams.get("u");
+		var f = url.searchParams.get("from");
+		var t = url.searchParams.get("to");
 		
-		var webSocket = new WebSocket('ws://localhost:8080/MortsAndBlesses/websocket/r33333_'+u);
+		var webSocket = new WebSocket('ws://localhost:8080/MortsAndBlesses/websocket/'+f+'/'+t);
 
 		webSocket.onerror = function(event) {
 			onError(event)
@@ -43,14 +44,11 @@
 		function onError(event) {
 			alert(event.data);
 		}
-
+		
 		function send() {
 			
 			var txt = document.getElementById('inputmessage').value;
-			let j={};
-			j.username=u;
-			j.txt=txt;
-			webSocket.send(JSON.stringify(j));
+			webSocket.send(txt);
 			return false;
 		}
 	</script>

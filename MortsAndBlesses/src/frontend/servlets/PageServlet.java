@@ -19,6 +19,7 @@ import org.apache.coyote.Request;
 import backend.routes.BackEndRoutes;
 import frontend.crypt.Hash;
 import frontend.game.Rooms;
+import frontend.modele.module.Jouer;
 import frontend.modele.module.User;
 import frontend.routes.FrontEndRoutes;
 import frontend.tools.HttpUtility;
@@ -64,9 +65,17 @@ public class PageServlet extends HttpServlet {
 			HttpSession session = request1.getSession();
 			
 			// ila mcha lprofile room lli kan fiha ate7yed
-			if(session.getAttribute("room")!=null) {
-				Rooms.removeJouer((String)session.getAttribute("room"));
-				session.setAttribute("room", null);
+			if(session.getAttribute("room")!=null) {System.out.println(session.getAttribute("room"));
+				Jouer jouer=Rooms.getJouer(session.getAttribute("room").toString());
+				User user =TokenParse.parse((String)session.getAttribute("token"));
+				
+				if(jouer!=null && jouer.getId_u1()==user.getId_u()) {
+					Rooms.removeJouer((String)session.getAttribute("room"));
+					session.removeAttribute("room");
+				}
+				else {
+					session.removeAttribute("room");
+				}
 			}
 			
 			if (session.getAttribute("token") != null) {
