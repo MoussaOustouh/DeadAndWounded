@@ -133,10 +133,10 @@
     <scrip src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></scrip>
 
     <script>
-      /*   setInterval(() => {
-            insert('{"state":"end","winner":"ana","numbers":{"user_1":1234,"user_2":5687},"users":{"user_1":{"morts":3,"blesses":4},"user_2":{"morts":2,"blesses":2}}}');
+         setInterval(() => {
+            insert('{"state":"end0","winner":"ana","numbers":{"user_1":1234,"user_2":5687},"users":{"user_1":{"morts":3,"blesses":4},"user_2":{"morts":2,"blesses":2}}}');
         }, 2000);
- */
+ 
     </script>
 
     <script>
@@ -147,22 +147,22 @@
                 audio.play();
                 $("#1").append(`
                 <article style="margin-bottom:30px;">
-            <h2>${data.numbers.user_1}</h2>
+            <h2>`+data.numbers.user_1+`</h2>
                     <article class="congrats">
                         <article class="row">
-                            <span><span style="color: yellow;">${data.users.user_1.morts}</span>Mort! , </span>
-                            <span><span style="color: yellow;">${data.users.user_1.blesses}</span>Blessé!</span>
+                            <span><span style="color: yellow;">`+data.users.user_1.morts+`</span>Mort! , </span>
+                            <span><span style="color: yellow;">`+data.users.user_1.blesses+`</span>Blessé!</span>
                         </article>
                     </article> </article>`
                     );
 
                 $("#2").append(`
                 <article style="margin-bottom:30px;">
-            <h2>${data.numbers.user_2}</h2>
+            <h2>`+data.numbers.user_2+`</h2>
                     <article class="congrats">
                         <article class="row">
-                            <span><span style="color: yellow;">${data.users.user_2.morts}</span>Mort! , </span>
-                            <span><span style="color: yellow;">${data.users.user_2.blesses}</span>Blessé!</span>
+                            <span><span style="color: yellow;">`+data.users.user_2.morts+`</span>Mort! , </span>
+                            <span><span style="color: yellow;">`+data.users.user_2.blesses+`</span>Blessé!</span>
                         </article>
                     </article> </article>`);
                     reset();
@@ -266,6 +266,36 @@
 
 
 </script>
+
+
+ <script>
+            var h1 = document.getElementsByTagName('h4')[0],
+                seconds = 0, minutes = 0, hours = 0,
+                t;
+
+            function add() {
+                seconds++;
+                if (seconds >= 60) {
+                    seconds = 0;
+                    minutes++;
+                    if (minutes >= 60) {
+                        minutes = 0;
+                        hours++;
+                    }
+                }
+
+                h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+                timer();
+            }
+            function timer() {
+                t = setTimeout(add, 1000);
+            }
+            timer();
+
+
+        </script>
+
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
