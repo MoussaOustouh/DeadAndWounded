@@ -19,7 +19,7 @@ import frontend.tools.TokenParse;
  * Servlet implementation class GameServlet
  */
 
-@WebServlet(urlPatterns= {"/Game_generate_room", "/Game_join_room", "/Game_choose_nombre", "/Game_destroy_room"})
+@WebServlet(urlPatterns= {"/Game_generate_room", "/Game_join_room", "/Game_choose_nombre", "/Game_destroy_room","/Game"})
 public class GameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -39,7 +39,10 @@ public class GameServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		if(request.getServletPath().toLowerCase().equals(FrontEndRoutes.game.toLowerCase())) {
+			request.getRequestDispatcher("/Pages/game.jsp").forward(request, response);
+		}
+		
 	}
 
 	/**

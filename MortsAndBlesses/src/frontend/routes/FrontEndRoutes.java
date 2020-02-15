@@ -20,6 +20,7 @@ public class FrontEndRoutes {
 	//{POST}  bach ila bgha l user_1 ims7 room mn "Rooms.rooms" ila kan mzl madkhl 7tta wa7d m3ah
 	public static String destroy_room="/Game_destroy_room"; 
 	
+	public static String game = "/game";
 	
 	
 	
