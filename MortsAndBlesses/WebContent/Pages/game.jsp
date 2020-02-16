@@ -252,18 +252,18 @@
     const re = /^[1-9\b]+$/;
     if ((input1.value !== "" ) || (input2.value !== "" ) || (input3.value !== '') || (input4.value !== '')) {
         if (input1.value === input2.value || input1.value === input3.value || input1.value === input4.value || input2.value === input3.value || input2.value === input4.value || input3.value === input4.value) {
-            alert("Ereur des nembres sont egeaux");
+            alert("Erreur Les nombres sont egaux");
         }
         else {
             if ((input1.value>0 && input1.value < 10) && (input2.value>0 && input2.value< 10) && (input3.value>0 && input3.value <10 )&& (input4.value>0 && input4.value<10 )) {
             document.formSaisie.submit();}
             else {
-                alert("Ereur des Nembres sont non compatible avec les regles de jeux");
+                alert("Les nombres ne respectent pas les regles du jeu");
             }
         }
     }
     else
-        alert("Ereur un ou des champs vide");
+        alert("Les champs vide");
     }
 
 
