@@ -52,7 +52,7 @@
     <br />
     <br />
     <div class="container ">
-        <h1 class="d-flex justify-content-center">Choisir Votre nembere pour jouer</h1>
+        <h1 class="d-flex justify-content-center">Choisir votre nombre pour jouer</h1>
         <div class="container d-flex justify-content-center"
             style="background-color: rgba(51, 170, 51, .1); width: 700px; border-radius: 20px;">
             <c:if test="${jouer.id_u2!=-1}">

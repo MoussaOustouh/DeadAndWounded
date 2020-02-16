@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html;  charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,11 +40,10 @@
             </ul>
             <form methode="GET" action="/MortsAndBlesses/Deconnecte" class="form-inline my-2 my-lg-0">
                 <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Déconnecté</button>
-                <audio id="track">
-                    <!-- <source src="http://basichow.com/asserts/interlude.mp3" type="audio/mpeg" /> -->
-                    <source src="../MortsAndBlesses/Pages/win.mp3"
-                        preload="metadata" type="audio/mpeg">
-                </audio>
+               <audio id="track">
+					<!-- <source src="http://basichow.com/asserts/interlude.mp3" type="audio/mpeg" /> -->
+					<source src="../MortsAndBlesses/Pages/audios/win.mp3" preload="metadata" type="audio/mpeg">
+				</audio>
 
                 <div id="player-container">
                     <div id="play-pause" class="play">Play</div>
@@ -62,11 +62,12 @@
     
     <div class="container">
         <output>Time:</output>
-        <h4>00:00:20</h4>
+        <h4>00:00:00</h4>
         <div class="row" style="margin-right: 10px;">
             <div class="col-sm-2"></div>
             <div class="card col-sm-4 " style="height:30rem; background-color:slategray; color: snow; overflow-y:auto;">
-                <h3>${user_1.prenom} ${user_1.nom}</h3>
+                <h3 style="margin-bottom: 0px;">${user_1.prenom} ${user_1.nom}</h3>
+                <c:if test="${user.id_u == jouer.id_u1}"><h6 style="margin-bottom: 0px;">Voter nombre <b>${jouer.nombre_u1}</b></h6></c:if>
                 <hr />
                 <center id="1" >
                     <article style="margin-bottom:30px;">
@@ -83,7 +84,8 @@
             </div>
             <div class="col-sm-1"></div>
             <div class="card col-sm-4" style="height:30rem; background-color:slategray; color: snow; overflow-y:auto;">
-                <h3>${user_2.prenom} ${user_2.nom}</h3>
+                <h3 style="margin-bottom: 0px;">${user_2.prenom} ${user_2.nom}</h3>
+                <c:if test="${user.id_u == jouer.id_u2}"><h6 style="margin-bottom: 0px;">Voter nombre <b>${jouer.nombre_u2}</b></h6></c:if>
                 <hr />
                 <center id="2">
                     <article style="margin-bottom:30px;">
@@ -106,12 +108,13 @@
 
                 <div class="row">
                     <div class="col-sm-2"></div>
-                    <input name="input1"  id="input1" class="form-control col-sm-2 " style="margin: 5px;" type="number" max="9" min="1">
-                    <input name="input2"  id="input2" class="form-control col-sm-2 " style="margin: 5px;" type="number" max="9" min="1">
-                    <input name="input3"  id="input3" class="form-control col-sm-2 " style="margin: 5px;" type="number" max="9" min="1">
-                    <input name="input4"  id="input4" class="form-control col-sm-2 " style="margin: 5px;" type="number" max="9" min="1">
-                    <button class="button" type="button" onclick="virification()"><svg class="bi bi-cursor" width="1em" height="1em" viewBox="0 0 20 20"
+                    <input name="input1"  id="input1" class="form-control col-sm-2 " style="margin: 5px;" type="number" max="9" min="0" pattern="[0-9]{4}">
+                    <input name="input2"  id="input2" class="form-control col-sm-2 " style="margin: 5px;" type="number" max="9" min="0" pattern="[0-9]{4}">
+                    <input name="input3"  id="input3" class="form-control col-sm-2 " style="margin: 5px;" type="number" max="9" min="0" pattern="[0-9]{4}">
+                    <input name="input4"  id="input4" class="form-control col-sm-2 " style="margin: 5px;" type="number" max="9" min="0" pattern="[0-9]{4}">
+                    <button class="button" type="button" onclick="sendNow()"><svg class="bi bi-cursor" width="1em" height="1em" viewBox="0 0 20 20"
                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <input type="hidden" id="number" name="number" value="">
                             <path fill-rule="evenodd"
                                 d="M16.081 4.182a.5.5 0 01.104.557l-5.657 12.727a.5.5 0 01-.917-.006L7.57 12.694l-4.766-2.042a.5.5 0 01-.006-.917L15.525 4.08a.5.5 0 01.556.103zM4.25 10.184l3.897 1.67a.5.5 0 01.262.263l1.67 3.897L14.743 5.52 4.25 10.184z"
                                 clip-rule="evenodd"></path>
@@ -140,7 +143,7 @@
 
     <script>
         function insert(json) {
-            var audio = new Audio('../MortsAndBlesses/Pages/add.mp3');
+            var audio = new Audio('../MortsAndBlesses/Pages/audios/add.mp3');
             var data = JSON.parse(json);
             if (data.state != "end") {
                 audio.play();
@@ -172,7 +175,7 @@
             }
             else {
 
-                var audio = new Audio('../MortsAndBlesses/Pages/Gameover.mp3');
+                var audio = new Audio('../MortsAndBlesses/Pages/audois/Gameover.mp3');
                 audio.play();
                 
                 $("body").append(`<div id="myModal" class="modal fade" role="dialog">
@@ -244,8 +247,8 @@
 
 </script>
 <script>
-        
-    function virification (){
+    var isSend=false;
+   	function virification (){
     var input1 = document.getElementById("input1");
     var input2 = document.getElementById("input2");
     var input3 = document.getElementById("input3");
@@ -256,22 +259,25 @@
             alert("Ereur des nembres sont egeaux");
         }
         else {
-            if ((input1.value>0 && input1.value < 10) && (input2.value>0 && input2.value< 10) && (input3.value>0 && input3.value <10 )&& (input4.value>0 && input4.value<10 )) {
-            document.formSaisie.submit();}
+            if ((input1.value>=0 && input1.value < 10) && (input2.value>=0 && input2.value< 10) && (input3.value>=0 && input3.value <10 )&& (input4.value>=0 && input4.value<10 )) {
+            	document.getElementById("number").value=""+input1.value+input2.value+input3.value+input4.value;
+            	
+            	isSend=true;
+            }
             else {
                 alert("Ereur des Nembres sont non compatible avec les regles de jeux");
             }
         }
     }
     else
-        alert("Ereur un ou des champs vide");
+        alert("Erreur un ou des champs vide");
     }
 
 
 </script>
 
 
-   <script>
+     <script>
             var h1 = document.getElementsByTagName('h4')[0],
                 
                 seconds = 0, minutes = 0, hours = 0,
@@ -279,8 +285,11 @@
                 if(sessionStorage.getItem("timer")){
                     var time =sessionStorage.getItem("timer");
                     var data=time.split(":");
+                    if(parseInt(data[0])>0)
                     hours=data[0];
+                    if(parseInt(data[1])>0)
                     minutes=data[1];
+                    if(parseInt(data[2])>0)
                     seconds=data[2];
                 }
             function add() {
@@ -293,9 +302,8 @@
                         hours++;
                     }
                 }
-
-                h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
-                sessionStorage.setItem("timer", (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds));
+                h1.textContent = (hours ? (hours > 9 ? hours : 0 + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : 0 + minutes) : "00") + ":" + (seconds > 9 ? seconds : 0 + seconds);
+                sessionStorage.setItem("timer", (hours ? (hours > 9 ? hours : 0 + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : 0 + minutes) : "00") + ":" + (seconds > 9 ? seconds : 0 + seconds));
                 timer();
             }
             function timer() {
@@ -305,7 +313,71 @@
 
 
         </script>
+        
+        
+		<c:if test="${ user.id_u==user_1.id_u || user.id_u==user_2.id_u }">
+    		<script type="text/javascript">
+				var url = (location.host+location.pathname).replace("Game_play", "websocketgame/${jouer.room}/${user.id_u}");
 
+				var webSocket = new WebSocket("ws://"+url);
+		
+				webSocket.onerror = function(event) {
+					onError(event);
+				};
+		
+				webSocket.onopen = function(event) {
+					onOpen(event);
+				};
+		
+				webSocket.onmessage = function(event) {
+					onMessage(event);
+				};
+		
+				function onMessage(event) {
+					//had event.data hiya l message json lli kayjik dak json 3layach taf9na 
+					//db nta 9ad dik lfonction dyal bach t3tiha dak json o hiya t9adhom f lbloc
+					//  ++ o dir les inputes o lbotona itkwansaw mlli isift l user chi ra9m 7tta tjih on message 3ad iwlliw ikhdmo
+					//  ++ o dir dik lfonction hya lli trje3 dok les input o lbona ikhdmo
+					
+					console.log(event.data);
+				}
+		
+				function onOpen(event) {
+					
+				}
+		
+				function onError(event) {
+					location.href=(location.protocol+"//"+location.host+location.pathname).replace("Game_play", "Profile");
+				}
+
+				function send(a) {
+					webSocket.send(a);
+				}
+				function sendNow(){
+					isSend=false;
+	    			virification ();
+	    			
+	    			if(isSend){
+	    				let jj={};
+	    				jj.number=document.getElementById("number").value;
+	    				webSocket.send(JSON.stringify(jj));
+
+	    			    document.getElementById("input1").value="";
+	    			    document.getElementById("input2").value="";
+	    			    document.getElementById("input3").value="";
+	    			    document.getElementById("input4").value="";
+	    			}
+	    		}
+			</script>
+    	</c:if>
+    	
+    	
+    	
+    	
+    	
+        
+        
+        
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

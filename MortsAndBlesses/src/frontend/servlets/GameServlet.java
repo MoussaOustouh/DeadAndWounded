@@ -83,12 +83,12 @@ public class GameServlet extends HttpServlet {
 						Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 						jouer.setDate_et_heure(timestamp);
 						Rooms.setJouer((String)session.getAttribute("room"), jouer);
-						
-						
 					}
 
 					User user_1=Rooms.getUserInRoom((String)session.getAttribute("room"), 1);
 					User user_2=Rooms.getUserInRoom((String)session.getAttribute("room"), 2);
+					
+					request.setAttribute("user", user);
 					request.setAttribute("user_1", user_1);
 					request.setAttribute("user_2", user_2);
 					request.setAttribute("jouer", jouer);

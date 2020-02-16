@@ -11,6 +11,12 @@ public class Rooms {
 	
 	public static HashMap<String, Jouer> rooms=new HashMap<String, Jouer>();
 
+	public static HashMap<String, Boolean> didHePlayed=new HashMap<String, Boolean>();
+	
+	public static HashMap<String, Integer> playersNumber=new HashMap<String, Integer>();
+	
+	public static HashMap<String, Integer> roomsWinners=new HashMap<String, Integer>();
+
 	public Rooms() {
 	}
 	
@@ -84,6 +90,9 @@ public class Rooms {
 		if(usersInRoom.containsKey(room+"_u"+u1ORu2)) {
 			usersInRoom.remove(room+"_u"+u1ORu2);
 		}
+		
+		// bach socket matl9ahomch
+		removedidHePlayed(room, u1ORu2);
 	}
 	
 	public static boolean isThereUserInRoom(String room, int u1ORu2) {
@@ -95,5 +104,61 @@ public class Rooms {
 		}
 	}
 	
+	public static void hePlayed(String room, boolean b, int u1ORu2) {
+		didHePlayed.put(room+"_u"+u1ORu2, b);
+	}
+	
+	public static boolean didHePlayed(String room, int u1ORu2) {
+		if(didHePlayed.containsKey(room+"_u"+u1ORu2)) {
+			return didHePlayed.get(room+"_u"+u1ORu2);
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public static void removedidHePlayed(String room, int u1ORu2) {
+		if(didHePlayed.containsKey(room+"_u"+u1ORu2)) {
+			didHePlayed.remove(room+"_u"+u1ORu2);
+		}
+	}
+	
+	public static boolean didBothPlayed(String room) {
+		if(didHePlayed(room, 1) && didHePlayed(room, 2)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public static void addPlayerNumber(String room, int number, int u1ORu2) {
+		playersNumber.put(room+"_u"+u1ORu2, number);
+	}
+	
+	public static int getPlayerNumber(String room, int u1ORu2) {
+		int n=playersNumber.get(room+"_u"+u1ORu2);
+		return n;
+	}
+	
+	public static void removePlayerNumber(String room, int u1ORu2) {
+		if(playersNumber.containsKey(room+"_u"+u1ORu2)) {
+			playersNumber.remove(room+"_u"+u1ORu2);
+		}
+	}
+	
+	public static void addRoomWinner(String room, int id_winner) {
+		roomsWinners.put(room, id_winner);
+	}
+	
+	public static int getRoomWinner(String room) {
+		return roomsWinners.get(room);
+	}
+	
+	public static void removeRoomWinner(String room) {
+		if(roomsWinners.containsKey(room)) {
+			roomsWinners.remove(room);
+		}
+	}
 	
 }
