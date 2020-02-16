@@ -67,7 +67,7 @@
         <div class="row" style="margin-right: 10px;">
             <div class="col-sm-2"></div>
             <div class="card col-sm-4 " style="height:30rem; background-color:slategray; color: snow; overflow-y:auto;">
-                <h3>${user1.nom} </h3>
+                <h3>${user_1.prenom} ${user_1.nom}</h3>
                 <hr />
                 <center id="1" >
                     <article style="margin-bottom:30px;">
@@ -84,7 +84,7 @@
             </div>
             <div class="col-sm-1"></div>
             <div class="card col-sm-4" style="height:30rem; background-color:slategray; color: snow; overflow-y:auto;">
-                <h3>${user2.nom} </h3>
+                <h3>${user_2.prenom} ${user_2.nom}</h3>
                 <hr />
                 <center id="2">
                     <article style="margin-bottom:30px;">

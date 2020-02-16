@@ -9,9 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.server.ServerEndpoint;
 
-import frontend.game.Game;
 import frontend.game.Rooms;
 import frontend.modele.module.Jouer;
 import frontend.modele.module.User;
@@ -22,7 +20,7 @@ import frontend.tools.TokenParse;
  * Servlet implementation class GameServlet
  */
 
-@WebServlet(urlPatterns= {"/Game_generate_room", "/Game_join_room", "/Game_choose_nombre", "/Game_destroy_room", "/Game_play", "/Game"})
+@WebServlet(urlPatterns= {"/Game_generate_room", "/Game_join_room", "/Game_choose_nombre", "/Game_destroy_room", "/Game_play"})
 public class GameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -90,13 +88,20 @@ public class GameServlet extends HttpServlet {
 						
 						
 					}
-					
-					
-					
+
+					User user_1=Rooms.getUserInRoom((String)session.getAttribute("room"), 1);
+					User user_2=Rooms.getUserInRoom((String)session.getAttribute("room"), 2);
+					request.setAttribute("user_1", user_1);
+					request.setAttribute("user_2", user_2);
+					request.setAttribute("jouer", jouer);
+					request.getRequestDispatcher("/Pages/game.jsp").forward(request, response);
 				}
 				else {
 					response.sendRedirect("Profile");
 				}
+			}
+			else {
+				response.sendRedirect("Profile");
 			}
 		}
 		
@@ -195,10 +200,14 @@ public class GameServlet extends HttpServlet {
 					if(user.getId_u()==jouer.getId_u1()) {
 						jouer.setNombre_u1(Integer.parseInt(request.getParameter("number")));
 						Rooms.setJouer(jouer.getRoom(), jouer);
+						
+						Rooms.addUserInRoom(jouer.getRoom(), user, 1);
 					}
 					else if(user.getId_u()==jouer.getId_u2()) {
 						jouer.setNombre_u2(Integer.parseInt(request.getParameter("number")));
 						Rooms.setJouer(jouer.getRoom(), jouer);
+						
+						Rooms.addUserInRoom(jouer.getRoom(), user, 2);
 					}
 					
 					request.setAttribute("jouer", jouer);
@@ -222,6 +231,10 @@ public class GameServlet extends HttpServlet {
 			if (request.getParameter("room")!=null) {
 				Rooms.removeJouer(request.getParameter("room"));
 				session.removeAttribute("room");
+
+				Rooms.removeUserInRoom(jouer.getRoom(), 1);
+				Rooms.removeUserInRoom(jouer.getRoom(), 2);
+				
 				response.sendRedirect("Profile");
 			}
 		}

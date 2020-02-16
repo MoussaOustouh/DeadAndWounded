@@ -104,16 +104,22 @@ public class PageServlet extends HttpServlet {
 					request.setAttribute("room_closed", new Jouer());
 					request.setAttribute("jouer", jouer);
 					session.removeAttribute("room");
+					Rooms.removeUserInRoom(jouer.getRoom(), 1);
 				}
 				else if(jouer!=null && user.getId_u()==jouer.getId_u2()){
 					jouer.setId_u2(0);
 					jouer.setNombre_u2(0);
 					Rooms.setJouer(session.getAttribute("room").toString(), jouer);
+					session.removeAttribute("room");
+					Rooms.removeUserInRoom(jouer.getRoom(), 2);
 				}
 				else {
 					request.setAttribute("room_closed", new Jouer());
 					request.setAttribute("jouer", jouer);
 					session.removeAttribute("room");
+					Rooms.removeJouer((String)session.getAttribute("room"));
+					Rooms.removeUserInRoom(jouer.getRoom(), 1);
+					Rooms.removeUserInRoom(jouer.getRoom(), 2);
 				}
 			}
 			
