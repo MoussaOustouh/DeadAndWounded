@@ -22,7 +22,7 @@ public class FrontEndRoutes {
 	//{POST}  bach ila bgha l user_1 ims7 room mn "Rooms.rooms" ila kan mzl madkhl 7tta wa7d m3ah
 	public static String play="/Game_play";
 
-	public static String game = "/game";
+	public static String contre_pc="/Game_against_computer";
 	
 	
 	

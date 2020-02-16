@@ -56,30 +56,59 @@
         <h1 class="d-flex justify-content-center">Choisir Votre nembere pour jouer</h1>
         <div class="container d-flex justify-content-center"
             style="background-color: rgba(51, 170, 51, .1); width: 700px; border-radius: 20px;">
-            <form method="POST" action="Game_choose_nombre"  name="formSaisie" >
-              <br>
-                <div class="row">
-                    <div class="col-3 "><input name="input1" min="0" max="9"  class="form-control" type="number"
-                            id="input1" /></div>
-                    <div class="col-3 "><input name="input2" min="0" max="9" class="form-control" type="number"
-                            id="input2" /></div>
-                    <div class="col-3 "><input name="input3" min="0" max="9" class="form-control" type="number"
-                            id="input3" /></div>
-                    <div class="col-3 "><input name="input4" min="0" max="9" class="form-control" type="number"
-                            id="input4" /></div>
-                            
-                            <input type="hidden" id="number" name="number" value="">
-                </div>
-                <br>
-                <div class="row">
-                <div class="col-5"></div>
-                <button style=" position: relative;" type="button"class="button" onclick="virification()"  >Play</button>
-                
-                </div>
-                <br />
-                <br />
-
-        </form>
+            <c:if test="${jouer.id_u2!=-1}">
+            	<form method="POST" action="Game_choose_nombre"  name="formSaisie" >
+            		<br>
+		                <div class="row">
+		                    <div class="col-3 "><input name="input1" min="0" max="9"  class="form-control" type="number"
+		                            id="input1" /></div>
+		                    <div class="col-3 "><input name="input2" min="0" max="9" class="form-control" type="number"
+		                            id="input2" /></div>
+		                    <div class="col-3 "><input name="input3" min="0" max="9" class="form-control" type="number"
+		                            id="input3" /></div>
+		                    <div class="col-3 "><input name="input4" min="0" max="9" class="form-control" type="number"
+		                            id="input4" /></div>
+		                            
+		                            <input type="hidden" id="number" name="number" value="">
+		                </div>
+		                <br>
+		                <div class="row">
+		                <div class="col-5"></div>
+		                <button style=" position: relative;" type="button"class="button" onclick="virification()"  >Play</button>
+		                
+		                </div>
+		                <br />
+		                <br />
+		
+		        </form>
+            </c:if>
+            <c:if test="${jouer.id_u2==-1}">
+            	<form method="POST" action="Game_against_computer"  name="formSaisie" >
+            		<br>
+		                <div class="row">
+		                    <div class="col-3 "><input name="input1" min="0" max="9"  class="form-control" type="number"
+		                            id="input1" /></div>
+		                    <div class="col-3 "><input name="input2" min="0" max="9" class="form-control" type="number"
+		                            id="input2" /></div>
+		                    <div class="col-3 "><input name="input3" min="0" max="9" class="form-control" type="number"
+		                            id="input3" /></div>
+		                    <div class="col-3 "><input name="input4" min="0" max="9" class="form-control" type="number"
+		                            id="input4" /></div>
+		                            
+		                            <input type="hidden" id="number" name="number" value="">
+		                </div>
+		                <br>
+		                <div class="row">
+		                <div class="col-5"></div>
+		                <button style=" position: relative;" type="button"class="button" onclick="virification()"  >Play</button>
+		                
+		                </div>
+		                <br />
+		                <br />
+		
+		        </form>
+            </c:if>
+              
 
     </div>
     </div>

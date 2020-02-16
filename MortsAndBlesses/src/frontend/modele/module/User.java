@@ -34,7 +34,7 @@ public class User implements java.io.Serializable  {
 		this.pourcentage_reussite=0;
 	}
 	
-	public User(JsonObject user) {System.out.println(user.toString());
+	public User(JsonObject user) {
 		if (user.containsKey("id_u")) {
 			this.id_u=user.getInt("id_u");
 		}
@@ -50,6 +50,27 @@ public class User implements java.io.Serializable  {
 		this.parties_perdues=user.getInt("parties_perdues");
 		this.etat=user.getInt("etat");
 		this.pourcentage_reussite=user.getInt("pourcentage_reussite");
+	}
+	
+	
+
+	public User(int id_u, String username, String password, String nom, String prenom, String email,
+			Date date_de_naissance, String image, int points, int parties_gagnees, int parties_perdues, int etat,
+			int pourcentage_reussite) {
+		super();
+		this.id_u = id_u;
+		this.username = username;
+		this.password = password;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.date_de_naissance = date_de_naissance;
+		this.image = image;
+		this.points = points;
+		this.parties_gagnees = parties_gagnees;
+		this.parties_perdues = parties_perdues;
+		this.etat = etat;
+		this.pourcentage_reussite = pourcentage_reussite;
 	}
 
 	public int getId_u(){

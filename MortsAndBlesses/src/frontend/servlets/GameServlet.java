@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import frontend.game.Computer;
 import frontend.game.Rooms;
 import frontend.modele.module.Jouer;
 import frontend.modele.module.User;
@@ -20,7 +21,7 @@ import frontend.tools.TokenParse;
  * Servlet implementation class GameServlet
  */
 
-@WebServlet(urlPatterns= {"/Game_generate_room", "/Game_join_room", "/Game_choose_nombre", "/Game_destroy_room", "/Game_play"})
+@WebServlet(urlPatterns= {"/Game_generate_room", "/Game_join_room", "/Game_choose_nombre", "/Game_destroy_room", "/Game_play", "/Game_against_computer"})
 public class GameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -43,10 +44,7 @@ public class GameServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		session=request.getSession();
-		if(request.getServletPath().toLowerCase().equals(FrontEndRoutes.game.toLowerCase())) {
-			request.getRequestDispatcher("/Pages/game.jsp").forward(request, response);
-		}
-		else if(request.getServletPath().toLowerCase().equals(FrontEndRoutes.choose_number.toLowerCase())) {
+		if(request.getServletPath().toLowerCase().equals(FrontEndRoutes.choose_number.toLowerCase())) {
 			session=request.getSession();
 			User user = TokenParse.parse((String)session.getAttribute("token"));
 			
@@ -222,6 +220,43 @@ public class GameServlet extends HttpServlet {
 				response.sendRedirect("Profile");
 			}
 			
+		}
+		else if(request.getServletPath().toLowerCase().equals(FrontEndRoutes.contre_pc.toLowerCase())){
+			session = request.getSession();
+			String room="";
+			jouer=new Jouer();
+			User user =TokenParse.parse((String)session.getAttribute("token"));
+			if(request.getParameter("number")==null) {
+				room=Rooms.generateUniqueRoom();
+				
+				session.setAttribute("room", room);
+				
+				jouer.setRoom(room);
+				jouer.setId_u1(user.getId_u());
+				jouer.setId_u2(-1);
+				
+				Rooms.setJouer(room, jouer);
+				
+				request.setAttribute("jouer", jouer);
+				request.setAttribute("user", user);
+				response.sendRedirect("Game_choose_nombre");
+			}
+			else if(request.getParameter("number")!=null) {
+				jouer=Rooms.getJouer(session.getAttribute("room").toString());
+				
+				jouer.setNombre_u1(Integer.parseInt(request.getParameter("number")));
+				jouer.setNombre_u2(Computer.generateNumber());
+				
+				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+				jouer.setDate_et_heure(timestamp);
+				
+				Rooms.setJouer(jouer.getRoom(), jouer);
+
+				Rooms.addUserInRoom(jouer.getRoom(), user, 1);
+				Rooms.addUserInRoom(jouer.getRoom(), Computer.user, 2);
+				
+				response.sendRedirect("Game_play");
+			}
 		}
 		
 		

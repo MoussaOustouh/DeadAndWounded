@@ -1,8 +1,13 @@
 package frontend.game;
 
+import java.sql.Date;
 import java.util.Random;
 
+import frontend.modele.module.User;
+
 public class Computer {
+	public static User user=new User(-1,"Computer","Computer","Computer","Computer","Computer",Date.valueOf("1997-01-07"),"computer.png",0,0,0,0,0);
+	
 	public static int generateNumber() {
 		String chaine="0123456789";
 		int length=4;

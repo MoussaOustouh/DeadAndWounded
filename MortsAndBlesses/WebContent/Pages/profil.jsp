@@ -163,9 +163,8 @@
 			        </div>
 			    </div>
 			    <div class="col-md-3 mb-3 flexBox" style="display: flex; flex-flow: row wrap; justify-content: center;">
-				      
-			        <form  method="POST">
-			            <input style="width:150px; background-color: green; border-bottom: 1px solid green;" type="button"  class="button" value="Contre l'ordinateur" ></input><br>
+			        <form action="Game_against_computer" method="POST">
+			            <input style="width:150px; background-color: green; border-bottom: 1px solid green;" type="submit"  class="button" value="Contre l'ordinateur" ></input><br>
 			        </form>
 			    </div>
 			  </div>
