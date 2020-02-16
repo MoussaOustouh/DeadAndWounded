@@ -39,11 +39,10 @@
             </ul>
             <form methode="GET" action="/MortsAndBlesses/Deconnecte" class="form-inline my-2 my-lg-0">
                 <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Déconnecté</button>
-                <audio id="track">
-                    <!-- <source src="http://basichow.com/asserts/interlude.mp3" type="audio/mpeg" /> -->
-                    <source src="../MortsAndBlesses/Pages/win.mp3"
-                        preload="metadata" type="audio/mpeg">
-                </audio>
+               <audio id="track">
+					<!-- <source src="http://basichow.com/asserts/interlude.mp3" type="audio/mpeg" /> -->
+					<source src="../MortsAndBlesses/Pages/audios/win.mp3" preload="metadata" type="audio/mpeg">
+				</audio>
 
                 <div id="player-container">
                     <div id="play-pause" class="play">Play</div>
@@ -140,7 +139,7 @@
 
     <script>
         function insert(json) {
-            var audio = new Audio('../MortsAndBlesses/Pages/add.mp3');
+            var audio = new Audio('../MortsAndBlesses/Pages/audios/add.mp3');
             var data = JSON.parse(json);
             if (data.state != "end") {
                 audio.play();
@@ -172,7 +171,7 @@
             }
             else {
 
-                var audio = new Audio('../MortsAndBlesses/Pages/Gameover.mp3');
+                var audio = new Audio('../MortsAndBlesses/Pages/audois/Gameover.mp3');
                 audio.play();
                 
                 $("body").append(`<div id="myModal" class="modal fade" role="dialog">
@@ -271,7 +270,7 @@
 </script>
 
 
-   <script>
+     <script>
             var h1 = document.getElementsByTagName('h4')[0],
                 
                 seconds = 0, minutes = 0, hours = 0,
@@ -279,8 +278,11 @@
                 if(sessionStorage.getItem("timer")){
                     var time =sessionStorage.getItem("timer");
                     var data=time.split(":");
+                    if(parseInt(data[0])>0)
                     hours=data[0];
+                    if(parseInt(data[1])>0)
                     minutes=data[1];
+                    if(parseInt(data[2])>0)
                     seconds=data[2];
                 }
             function add() {
@@ -293,9 +295,8 @@
                         hours++;
                     }
                 }
-
-                h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
-                sessionStorage.setItem("timer", (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds));
+                h1.textContent = (hours ? (hours > 9 ? hours : 0 + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : 0 + minutes) : "00") + ":" + (seconds > 9 ? seconds : 0 + seconds);
+                sessionStorage.setItem("timer", (hours ? (hours > 9 ? hours : 0 + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : 0 + minutes) : "00") + ":" + (seconds > 9 ? seconds : 0 + seconds));
                 timer();
             }
             function timer() {
@@ -305,7 +306,6 @@
 
 
         </script>
-
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
