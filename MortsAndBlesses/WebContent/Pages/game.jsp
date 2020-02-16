@@ -66,37 +66,23 @@
         <div class="row" style="margin-right: 10px;">
             <div class="col-sm-2"></div>
             <div class="card col-sm-4 " style="height:30rem; background-color:slategray; color: snow; overflow-y:auto;">
-                <h3 style="margin-bottom: 0px;">${user_1.prenom} ${user_1.nom}</h3>
+                <h3 id="u_1" style="margin-bottom: 0px;">${user_1.prenom} ${user_1.nom}</h3>
                 <c:if test="${user.id_u == jouer.id_u1}"><h6 style="margin-bottom: 0px;">Voter nombre <b>${jouer.nombre_u1}</b></h6></c:if>
                 <hr />
                 <center id="1" >
-                    <article style="margin-bottom:30px;">
-                    <h2>5 3 2 5</h2>
-                    <article class="congrats">
-                        <article class="row">
-                            <span><span style="color: yellow;">1</span>Mort! , </span>
-                            <span><span style="color: yellow;"> 2</span>Blessé!</span>
-                        </article>
-                    </article>
-                </article>
+                    
+           
                 
                 </center>
             </div>
             <div class="col-sm-1"></div>
             <div class="card col-sm-4" style="height:30rem; background-color:slategray; color: snow; overflow-y:auto;">
-                <h3 style="margin-bottom: 0px;">${user_2.prenom} ${user_2.nom}</h3>
+                <h3 id="u_2" style="margin-bottom: 0px;">${user_2.prenom} ${user_2.nom}</h3>
                 <c:if test="${user.id_u == jouer.id_u2}"><h6 style="margin-bottom: 0px;">Voter nombre <b>${jouer.nombre_u2}</b></h6></c:if>
                 <hr />
                 <center id="2">
-                    <article style="margin-bottom:30px;">
-                    <h2>2 9 4 9</h2>
-                    <article class="congrats">
-                        <article class="row" >
-                            <span><span style="color: yellow;">1</span>Mort! , </span>
-                            <span><span style="color: yellow;"> 3</span>Blessé!</span>
-                        </article>
-                    </article>
-                    </article>
+                    
+                    
                 </center>
 
             </div>
@@ -112,13 +98,13 @@
                     <input name="input2"  id="input2" class="form-control col-sm-2 " style="margin: 5px;" type="number" max="9" min="0" pattern="[0-9]{4}">
                     <input name="input3"  id="input3" class="form-control col-sm-2 " style="margin: 5px;" type="number" max="9" min="0" pattern="[0-9]{4}">
                     <input name="input4"  id="input4" class="form-control col-sm-2 " style="margin: 5px;" type="number" max="9" min="0" pattern="[0-9]{4}">
-                    <button class="button" type="button" onclick="sendNow()"><svg class="bi bi-cursor" width="1em" height="1em" viewBox="0 0 20 20"
+                    <button class="button" type="button" id ="btn" onclick="sendNow()"><svg class="bi bi-cursor" width="1em" height="1em" viewBox="0 0 20 20"
                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <input type="hidden" id="number" name="number" value="">
                             <path fill-rule="evenodd"
                                 d="M16.081 4.182a.5.5 0 01.104.557l-5.657 12.727a.5.5 0 01-.917-.006L7.57 12.694l-4.766-2.042a.5.5 0 01-.006-.917L15.525 4.08a.5.5 0 01.556.103zM4.25 10.184l3.897 1.67a.5.5 0 01.262.263l1.67 3.897L14.743 5.52 4.25 10.184z"
                                 clip-rule="evenodd"></path>
                         </svg> </button >
+                            <input type="hidden" id="number" name="number" value="">
                 </div>
 
         </div>
@@ -135,10 +121,10 @@
     <scrip src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></scrip>
 
     <script>
-         setInterval(() => {
+        /*  setInterval(() => {
             insert('{"state":"end0","winner":"ana","numbers":{"user_1":1234,"user_2":5687},"users":{"user_1":{"morts":3,"blesses":4},"user_2":{"morts":2,"blesses":2}}}');
         }, 2000);
- 
+  */
     </script>
 
     <script>
@@ -175,28 +161,10 @@
             }
             else {
 
-                var audio = new Audio('../MortsAndBlesses/Pages/audois/Gameover.mp3');
+                var audio = new Audio('../MortsAndBlesses/Pages/audios/Gameover.mp3');
                 audio.play();
                 
-                $("body").append(`<div id="myModal" class="modal fade" role="dialog">
-      <div class="modal-dialog">
- 
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Fin de Jeux !</h4>
-          </div>
-          <div class="modal-body">
-            <p>Felicitation <strong>${data.winner}</strong></p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" onclick="redirect()" data-dismiss="modal">Close</button>
-          </div>
-        </div>
- 
-      </div>
-    </div>
- </div>`);
+                $("body").append('<div id="myModal" class="modal fade" role="dialog"><div class="modal-dialog"> <!-- Modal content--><div class="modal-content"><div class="modal-header"><h4 class="modal-title">Fin de Jeux !</h4></div><div class="modal-body"><p>Felicitation <strong>'+ document.getElementById("u_"+data.winners).textContent +'</strong></p></div><div class="modal-footer"><button type="button" class="btn btn-default" onclick="redirect()" data-dismiss="modal">Close</button></div></div> </div></div> </div>');
 
                 $("#myModal").modal("show");
                 $('.modal-backdrop').appendTo('body');
@@ -340,6 +308,15 @@
 					//  ++ o dir dik lfonction hya lli trje3 dok les input o lbona ikhdmo
 					
 					console.log(event.data);
+					$('#btn').removeAttr('disabled');
+					$('#input1').removeAttr('disabled');
+					$('#input2').removeAttr('disabled');
+					$('#input3').removeAttr('disabled');
+					$('#input4').removeAttr('disabled');
+
+					insert(event.data);
+					
+					
 				}
 		
 				function onOpen(event) {
@@ -362,10 +339,16 @@
 	    				jj.number=document.getElementById("number").value;
 	    				webSocket.send(JSON.stringify(jj));
 
+						$('#btn').attr('disabled','none');
+						$('#input1').attr('disabled','none');
+						$('#input2').attr('disabled','none');
+						$('#input3').attr('disabled','none');
+						$('#input4').attr('disabled','none');
 	    			    document.getElementById("input1").value="";
 	    			    document.getElementById("input2").value="";
 	    			    document.getElementById("input3").value="";
 	    			    document.getElementById("input4").value="";
+	    			    
 	    			}
 	    		}
 			</script>
