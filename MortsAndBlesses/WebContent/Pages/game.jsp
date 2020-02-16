@@ -261,7 +261,7 @@
         else {
             if ((input1.value>=0 && input1.value < 10) && (input2.value>=0 && input2.value< 10) && (input3.value>=0 && input3.value <10 )&& (input4.value>=0 && input4.value<10 )) {
             	document.getElementById("number").value=""+input1.value+input2.value+input3.value+input4.value;
-            	
+            	//blokihom hna 
             	isSend=true;
             }
             else {
@@ -366,6 +366,7 @@
 	    			    document.getElementById("input2").value="";
 	    			    document.getElementById("input3").value="";
 	    			    document.getElementById("input4").value="";
+	    			    
 	    			}
 	    		}
 			</script>
