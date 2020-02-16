@@ -55,4 +55,14 @@ public class Rooms {
 	}
 	
 	
+	public static boolean analyseRoom(Jouer j) {
+		if(j!=null && j.getId_u1()!=0 && j.getId_u2()!=0 && j.getRoom()!="" && j.getNombre_u1()!=0 && j.getNombre_u2()!=0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	
 }

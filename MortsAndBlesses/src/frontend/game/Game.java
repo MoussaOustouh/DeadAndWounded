@@ -6,14 +6,33 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 
-import frontend.modele.module.User;
 
 public class Game {
 	
-	public static ArrayList<User> usersWaitingToPlay=new ArrayList<User>();
+	public static ArrayList<String> idUsersWaitingToPlay=new ArrayList<String>();
+	
+	public static boolean isThereRandomUsers(int id_u) {
+		if(Game.idUsersWaitingToPlay.contains(""+id_u)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public static void pushRandomUsers(int id_u) {
+		Game.idUsersWaitingToPlay.add(""+id_u);
+	}
+	
+	public static void removeRandomUsers(int id_u) {
+		if(Game.idUsersWaitingToPlay.contains(""+id_u)) {
+			Game.idUsersWaitingToPlay.remove(""+id_u);
+		}
+	}
 	
 	//hadi kat9arn ra9m lli khtar user_1 o ra99m lli khtar lih l user_2 o katreturner  {"morts": v_morts, "blesses": v_blesses}
 	public static JsonObject analyse(int userNumber, int compareWith) {
+		
 		int morts=0, blesses=0;
 		String s1=""+userNumber, s2=""+compareWith;
 		

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,8 +41,8 @@
             <form methode="GET" action="/MortsAndBlesses/Deconnecte" class="form-inline my-2 my-lg-0">
                 <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Déconnecté</button>
                 <audio id="track">
-                    <source src="../MortsAndBlesses/Pages/win.mp3"
-                        preload="metadata" type="audio/mpeg">
+                    <!-- <source src="http://basichow.com/asserts/interlude.mp3" type="audio/mpeg" /> -->
+                    <source src="../MortsAndBlesses/Pages/audios/win.mp3" preload="metadata" type="audio/mpeg">
                 </audio>
 
                 <div id="player-container">
@@ -56,6 +57,15 @@
     </nav>
     <!-- fin navbar -->
 
+	<c:if test="${ room_closed ne null }">
+		<div class="alert alert-warning alert-dismissible fade show" style="position:fixed; width:70%; margin-left: 15%; margin-right: 15%; text-align: center;" role="alert">
+		  	<strong>ROOM a été fermée</strong> 
+		  	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    	<span aria-hidden="true">&times;</span>
+		  	</button>
+		</div>
+		<% request.removeAttribute("room_closed"); %>
+	</c:if>
 
 
     <!-- boody de page -->
@@ -112,13 +122,12 @@
 						<div style="padding-left: 20px;"></div>
 						<div class="form-group  col-md-2">
 							<label for="exampleInputPassword1">Pourcentage</label> <input
-								type="text" class="form-control" readonly value="${ user.pourcentage_reussite }">
+								type="text" class="form-control" readonly value="${ user.pourcentage_reussite } %">
 						</div>
 					</div>
 			  	</div>
 			</div>
 
-        <br>
         <hr>
         <h1>Jeux</h1>
         
@@ -135,19 +144,21 @@
 			        <form action="Game_join_room" method="POST" class="col-md-12 mb-3">
 			        	<div class="form-row">
 				        	<div class="col-md-6">
-				        		<input class="form-control" name="room" type="text" placeholder="ROOM ID" required="required" pattern="[A-Za-z0-9]{4}">
+				        		<input class="form-control" name="room" type="text" placeholder="ROOM ID" required="required" pattern="[A-Za-z0-9]{4}" size="4" maxlength="4">
 						    </div>
 				        	<div class="col-md-6">
 				        		<input class="button" style="width:150px; background-color: #17a2b8; border-bottom: 1px solid #17a2b8;" type="submit" value="Join to ROOM"></input>
 						    </div>
 					    </div>
 			        </form>
-			        <div class="col-md-12" style="display: flex; flex-flow: row wrap; justify-content: center; color: red;">
+			        <div class="col-md-12" style="display: flex; flex-flow: row wrap; justify-content: center; color: red; font-weight: bold;">
 			        	<% 
 				        	session=request.getSession();
 				        	if(session.getAttribute("error")!=null){
 				        		out.println(session.getAttribute("error"));
-				        	} 
+				        	}
+				        	
+				        	session.removeAttribute("error");
 			        	%>
 			        </div>
 			    </div>

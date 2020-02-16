@@ -18,12 +18,14 @@ import org.apache.coyote.Request;
 
 import backend.routes.BackEndRoutes;
 import frontend.crypt.Hash;
+import frontend.game.Game;
 import frontend.game.Rooms;
 import frontend.modele.module.Jouer;
 import frontend.modele.module.User;
 import frontend.routes.FrontEndRoutes;
 import frontend.tools.HttpUtility;
 import frontend.tools.TokenParse;
+import frontend.websockets.UserSocketSession;
 
 /**
  * Servlet implementation class Page
@@ -39,9 +41,37 @@ public class PageServlet extends HttpServlet {
 			HttpServletRequest request1 = (HttpServletRequest) request;
 			HttpSession session = request1.getSession();
 			System.out.println("session: " + session.getAttribute("token"));
+			User user =TokenParse.parse((String)session.getAttribute("token"));
+			
 			if (session.getAttribute("token") != null) {
 				session.removeAttribute("token");
 			}
+			
+			// 7yedo mn les users lli kaytsnnaw bach il3bo 3llah
+			if(Game.isThereRandomUsers(user.getId_u())) {
+				Game.removeRandomUsers(user.getId_u());
+			}
+			
+			// 7yedo mn les sessions d socket
+			UserSocketSession.removeSessionById(user.getId_u());
+			
+			
+			System.out.println(BackEndRoutes.server+BackEndRoutes.historique_con_logout+"?id_u="+user.getId_u());
+			HttpUtility.newRequest(request, response, BackEndRoutes.server+BackEndRoutes.historique_con_logout+"?id_u="+user.getId_u(), HttpUtility.METHOD_GET, new HashMap<String, String>(),
+					new HttpUtility.Callback() {
+
+						@Override
+						public void OnSuccess(String respons) {
+							
+						}
+
+						@Override
+						public void OnError(int status_code, String message) {
+							
+						}
+					});
+			
+			
 
 			response.sendRedirect("Login");
 
@@ -65,15 +95,24 @@ public class PageServlet extends HttpServlet {
 			HttpSession session = request1.getSession();
 			
 			// ila mcha lprofile room lli kan fiha ate7yed
-			if(session.getAttribute("room")!=null) {System.out.println(session.getAttribute("room"));
+			if(session.getAttribute("room")!=null) {
 				Jouer jouer=Rooms.getJouer(session.getAttribute("room").toString());
 				User user =TokenParse.parse((String)session.getAttribute("token"));
 				
-				if(jouer!=null && jouer.getId_u1()==user.getId_u()) {
+				if(jouer!=null && user.getId_u()==jouer.getId_u1()) {
 					Rooms.removeJouer((String)session.getAttribute("room"));
+					request.setAttribute("room_closed", new Jouer());
+					request.setAttribute("jouer", jouer);
 					session.removeAttribute("room");
 				}
+				else if(jouer!=null && user.getId_u()==jouer.getId_u2()){
+					jouer.setId_u2(0);
+					jouer.setNombre_u2(0);
+					Rooms.setJouer(session.getAttribute("room").toString(), jouer);
+				}
 				else {
+					request.setAttribute("room_closed", new Jouer());
+					request.setAttribute("jouer", jouer);
 					session.removeAttribute("room");
 				}
 			}

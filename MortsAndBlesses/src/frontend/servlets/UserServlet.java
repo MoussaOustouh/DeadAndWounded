@@ -37,7 +37,7 @@ public class UserServlet extends HttpServlet {
 				response.sendRedirect("Profile");
 			}
 			else
-			request.getRequestDispatcher("/Pages/singup.jsp").forward(request, response);
+				request.getRequestDispatcher("/Pages/singup.jsp").forward(request, response);
 		}
 		if (request.getServletPath().toLowerCase().equals(FrontEndRoutes.login.toLowerCase())) {
 			HttpServletRequest request1 = (HttpServletRequest) request;
@@ -113,13 +113,10 @@ public class UserServlet extends HttpServlet {
 				HashMap<String, String> params = new HashMap<String, String>();
 				params.put("username", request.getParameter("username"));
 				params.put("password", Hash.toSHA_384(request.getParameter("password")));
-				System.out.println(Hash.toSHA_384(request.getParameter("password")));
-				System.out.println(BackEndRoutes.server+BackEndRoutes.register);
-				System.out.println(request.getParameter("date_de_naissance"));
 				params.put("nom", request.getParameter("nom"));
-				params.put("date_de_naissance", request.getParameter("date_de_naissance"));
-				params.put("email", request.getParameter("email"));
 				params.put("prenom", request.getParameter("prenom"));
+				params.put("date_de_naissance", request.getParameter("date_de_naissance"));
+				params.put("email", request.getParameter("email").toLowerCase());
 
 				HttpUtility.newRequest(request, response, BackEndRoutes.server+BackEndRoutes.register, HttpUtility.METHOD_POST, params,
 						new HttpUtility.Callback() {
@@ -128,7 +125,7 @@ public class UserServlet extends HttpServlet {
 							public void OnSuccess(String respons) {
 								try {
 									System.out.println("Server OnSuccess response=" + respons);
-									response.sendRedirect("/MortsAndBlesses/Login");
+									response.sendRedirect("Login");
 								} catch (IOException e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();

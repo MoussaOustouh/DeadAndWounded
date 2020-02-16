@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.websocket.Session;
 
 public class UserSocketSession {
-	private static Map<Integer, Session> sessions = new ConcurrentHashMap<>();
+	public static Map<Integer, Session> sessions = new ConcurrentHashMap<>();
 
 	public static Session getSessionById(int id_u) {
 		return UserSocketSession.sessions.get(id_u);

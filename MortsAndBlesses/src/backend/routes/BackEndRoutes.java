@@ -93,7 +93,7 @@ public class BackEndRoutes {
 	
 	// {PUT} had rout mlli aydeconnecta. ansift lik {'id_u', 'deconnexion':'lw9t fach deconnectat'} + token
 	// ghadi tmodifier 'deconnexion' akhir ligne dyal dak l 'id_u' f tableau 'historique_con' o tsupprimer token dyalo mn 3ndk
-	public static String historique_con_logout="/historique_con/logout";
+	public static String historique_con_logout="/logout";
 	
 	
 }

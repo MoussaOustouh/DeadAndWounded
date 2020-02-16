@@ -21,10 +21,21 @@ public class WebSocketRedirection {
 	
 	@OnMessage
     public void onMessage(String message, Session session, @PathParam("room") String room, @PathParam("id_u") int id_u) throws IOException {
-    	if(message.equals("Go to choose number")) {
+		if(message.equals("Go to choose number")) {
     		Jouer jouer=Rooms.getJouer(room);
     		if(jouer!=null) {
     			UserSocketSession.getSessionById(jouer.getId_u1()).getBasicRemote().sendText(message);
+    		}
+    	}
+		else if(message.equals("Go to play")) {
+    		Jouer jouer=Rooms.getJouer(room);
+    		if(jouer!=null) {
+    			if(id_u==jouer.getId_u1()) {
+    				UserSocketSession.getSessionById(jouer.getId_u2()).getBasicRemote().sendText(message);
+    			}
+    			else if(id_u==jouer.getId_u2()) {
+    				UserSocketSession.getSessionById(jouer.getId_u1()).getBasicRemote().sendText(message);
+    			}
     		}
     	}
     }
@@ -32,8 +43,6 @@ public class WebSocketRedirection {
 	@OnOpen
     public void onOpen (Session session, @PathParam("id_u") int id_u) {
 		UserSocketSession.setSessionById(id_u, session);
-		
-		System.out.println(id_u);
     }
 
     @OnClose

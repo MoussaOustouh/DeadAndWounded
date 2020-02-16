@@ -98,8 +98,7 @@
             <form class="form-inline my-2 my-lg-0">
                 <audio id="track">
                     <!-- <source src="http://basichow.com/asserts/interlude.mp3" type="audio/mpeg" /> -->
-                     <source src="../MortsAndBlesses/Pages/win.mp3"
-                        preload="metadata" type="audio/mpeg">
+                    <source src="../MortsAndBlesses/Pages/audios/win.mp3" preload="metadata" type="audio/mpeg">
                 </audio>
 
                 <div id="player-container">
@@ -117,8 +116,8 @@
     <br />
     <br />
     <div class="container ">
-    	<c:if test="${ jouer.id_u1 != 0 && jouer.id_u2 == 0 }">
-    		<script type="text/javascript">		
+    	<c:if test="${ jouer.id_u1 != 0 && jouer.id_u2 == 0 && jouer.nombre_u1 == 0 && jouer.nombre_u2 == 0 }">
+    		<script type="text/javascript">
 				var url = (location.host+location.pathname).replace("Game_generate_room", "websocketredirection/${jouer.room}/${jouer.id_u1}");
 
 				var webSocket = new WebSocket("ws://"+url);
@@ -146,7 +145,7 @@
 				}
 		
 				function onError(event) {
-					alert(event.data);
+					location.href=(location.protocol+"//"+location.host+location.pathname).replace("Game_generate_room", "Profile");
 				}
 
 				function send() {
@@ -156,7 +155,7 @@
     	</c:if>
     	
     	
-    	<c:if test="${ jouer.id_u2 != 0 }">
+    	<c:if test="${ jouer.id_u1 != 0 && jouer.id_u2 != 0  && jouer.nombre_u1 == 0 && jouer.nombre_u2 == 0 }">
     		<script type="text/javascript">
 				
 				var url = (location.host+location.pathname).replace("Game_join_room", "websocketredirection/${jouer.room}/${jouer.id_u2}");
@@ -185,7 +184,7 @@
 				}
 		
 				function onError(event) {
-					alert(event.data);
+					location.href=(location.protocol+"//"+location.host+location.pathname).replace("Game_join_room", "Profile");
 				}
 
 				function send() {
@@ -193,6 +192,82 @@
 				}
 			</script>
     	</c:if>
+    	
+    	<c:choose>
+    		<c:when test="${ jouer.id_u1 != 0 && jouer.id_u2 != 0  && jouer.nombre_u1 != 0 && jouer.nombre_u2 != 0 }">
+    			<script type="text/javascript">
+					var url = (location.host+location.pathname).replace("Game_choose_nombre", "websocketredirection/${jouer.room}/${user.id_u}");
+	
+					var webSocket = new WebSocket("ws://"+url);
+			
+					webSocket.onerror = function(event) {
+						onError(event);
+					};
+			
+					webSocket.onopen = function(event) {
+						onOpen(event);
+					};
+			
+					webSocket.onmessage = function(event) {
+						onMessage(event);
+					};
+			
+					function onMessage(event) {
+						
+					}
+			
+					function onOpen(event) {
+						webSocket.send("Go to play");
+						location.href=(location.protocol+"//"+location.host+location.pathname).replace("Game_choose_nombre", "Game_play");
+					}
+			
+					function onError(event) {
+						location.href=(location.protocol+"//"+location.host+location.pathname).replace("Game_choose_nombre", "Profile");
+					}
+	
+					function send() {
+						
+					}
+				</script>
+    		</c:when>
+    		<c:when test="${ jouer.id_u1 != 0 && jouer.id_u2 != 0  && (jouer.nombre_u1 != 0 || jouer.nombre_u2 != 0) }">
+    			<script type="text/javascript">
+					var url = (location.host+location.pathname).replace("Game_choose_nombre", "websocketredirection/${jouer.room}/${user.id_u}");
+	
+					var webSocket = new WebSocket("ws://"+url);
+			
+					webSocket.onerror = function(event) {
+						onError(event);
+					};
+			
+					webSocket.onopen = function(event) {
+						onOpen(event);
+					};
+			
+					webSocket.onmessage = function(event) {
+						onMessage(event);
+					};
+			
+					function onMessage(event) {
+						if(event.data=="Go to play"){
+							location.href=(location.protocol+"//"+location.host+location.pathname).replace("Game_choose_nombre", "Game_play");
+						}
+					}
+			
+					function onOpen(event) {
+						
+					}
+			
+					function onError(event) {
+						location.href=(location.protocol+"//"+location.host+location.pathname).replace("Game_choose_nombre", "Profile");
+					}
+	
+					function send() {
+						
+					}
+				</script>
+    		</c:when>
+    	</c:choose>
     	
    
         <table style="width: 100%;">
@@ -214,7 +289,12 @@
 
     </div>
     <div>
-    	<h3 style="text-align: center;">Patientez svp ...</h3>
+    	<c:if test="${ jouer.id_u1 != 0 && jouer.id_u2 == 0 && jouer.nombre_u1 == 0 && jouer.nombre_u2 == 0 }">
+    		<h3 style="text-align: center;">Attendez le deuxième joueur ...</h3>
+    	</c:if>
+    	<c:if test="${ (jouer.id_u1 != 0 && jouer.id_u2 != 0) && (jouer.nombre_u1 == 0 || jouer.nombre_u2 == 0)}">
+    		<h3 style="text-align: center;">Attendez le deuxième joueur pour choisir son numéro ...</h3>
+    	</c:if>
     	<center><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></center>
     </div>
     <!-- Fin de page -->
