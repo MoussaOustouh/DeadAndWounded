@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html;  charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,12 +30,12 @@
                         <span class="sr-only">(current)</span>
                     </a></li>
                 <li class="nav-item"><a class="nav-link disabled" href="/signup.html" tabindex="-1"
-                        aria-disabled="true">CrÈe
+                        aria-disabled="true">Cr√©e
                         Compte</a></li>
 
             </ul>
             <form methode="GET" action="Deconnecte" class="form-inline my-2 my-lg-0">
-                <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">DÈconnectÈ</button>
+                <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">D√©connect√©</button>
             </form>
             <audio id="track">
                 <!-- <source src="http://basichow.com/asserts/interlude.mp3" type="audio/mpeg" /> -->

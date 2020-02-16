@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html;  charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +42,7 @@
 
             </ul>
             <form methode="GET" action="/MortsAndBlesses/Deconnecte" class="form-inline my-2 my-lg-0">
-                <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Déconnecté</button>
+                <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">DÃ©connectÃ©</button>
                 <audio id="track">
                     <!-- <source src="http://basichow.com/asserts/interlude.mp3" type="audio/mpeg" /> -->
                     <source src="../MortsAndBlesses/Pages/audios/win.mp3" preload="metadata" type="audio/mpeg">
@@ -63,7 +62,7 @@
 
 	<c:if test="${ room_closed ne null }">
 		<div class="alert alert-warning alert-dismissible fade show" style="position:fixed; width:70%; margin-left: 15%; margin-right: 15%; text-align: center;" role="alert">
-		  	<strong>ROOM a été fermée</strong> 
+		  	<strong>ROOM a Ã©tÃ© fermÃ©e</strong> 
 		  	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 		    	<span aria-hidden="true">&times;</span>
 		  	</button>
@@ -141,7 +140,7 @@
 			      	<form action="Game_generate_room" method="POST">
 			            <input type="submit" class="button "
 			                style=" background-color: #007bff; width:150px; border-bottom: 1px solid #007bff;"
-			                value="Crée une ROOM"></input><br>
+			                value="CrÃ©e une ROOM"></input><br>
 			        </form>
 			    </div>
 			    <div class="col-md-6 mb-3 flexBox" style="display: flex; flex-flow: row wrap; justify-content: center;">

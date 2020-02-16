@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html;  charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -88,36 +87,36 @@
         <h3>Devlopper par : </h3>
         <br>
         <div> <img src="../MortsAndBlesses/Pages/images/othmane.jpg" alt="Avatar" class="avatar">
-            <output style="font-size:20px"> Aboujaafar Othmane Master spécialisé Ingenieurie Informatique et Internet Fsac</output>
+            <output style="font-size:20px"> Aboujaafar Othmane Master spécialisé Ingenieurie Informatique et Internet - <span title="Faculté des Sciences Aïn Chock Casablanca"><b>FSAC</b></span></output>
         </div>
         <br>
         <br>
         <div> <img src="../MortsAndBlesses/Pages/images/moussa.jpg" alt="Avatar" class="avatar">
-            <output style="font-size:20px"> Oustouh Moussa Master spécialisé Ingenieurie Informatique et Internet Fsac </output>
+            <output style="font-size:20px"> Oustouh Moussa Master spécialisé Ingenieurie Informatique et Internet - <span title="Faculté des Sciences Aïn Chock Casablanca"><b>FSAC</b></span> </output>
         </div>
         <br><br>
         <div> <img src="../MortsAndBlesses/Pages/images/l3aydi.jpg" alt="Avatar" class="avatar">
-            <output style="font-size:20px"> El agal El aydi Master spécialisé Ingenieurie Informatique et Internet Fsac </output>
+            <output style="font-size:20px"> El agal El aydi Master spécialisé Ingenieurie Informatique et Internet - <span title="Faculté des Sciences Aïn Chock Casablanca"><b>FSAC</b></span> </output>
         </div>
         <br><br>
         <div> <img src="../MortsAndBlesses/Pages/images/zakaria.jpg" alt="Avatar" class="avatar">
-            <output style="font-size:20px"> Gharib Zakaria Master spécialisé Ingenieurie Informatique et Internet Fsac </output>
+            <output style="font-size:20px"> Gharib Zakaria Master spécialisé Ingenieurie Informatique et Internet - <span title="Faculté des Sciences Aïn Chock Casablanca"><b>FSAC</b></span> </output>
         </div>
         <br><br>
     </div>
     <!-- Fin de page -->
     <!-- script -->
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.js"></script>
+    <script src="../MortsAndBlesses/Pages/js/jquery.js"></script>
+    <script src="../MortsAndBlesses/Pages/js/bootstrap.js"></script>
     <!-- btn jcript -->
    <script src="../MortsAndBlesses/Pages/js/jquery.js"></script>
     <script src="../MortsAndBlesses/Pages/js/bootstrap.js"></script>
     <!-- btn jcript -->
     <script src="../MortsAndBlesses/Pages/js/btnMusic.js"></script>
     <script src="../MortsAndBlesses/Pages/js/othmanejs.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"> </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <scrip src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></scrip>
+    <script src="../MortsAndBlesses/Pages/js/TweenMax.min.js"> </script>
+    <script src="../MortsAndBlesses/Pages/js/jquery.min.js"></script>
+    <script src="../MortsAndBlesses/Pages/js/underscore-min.js"></script>
 </body>
 
 </html>

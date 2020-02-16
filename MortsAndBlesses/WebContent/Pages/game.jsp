@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html;  charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,7 +38,7 @@
 
             </ul>
             <form methode="GET" action="/MortsAndBlesses/Deconnecte" class="form-inline my-2 my-lg-0">
-                <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Déconnecté</button>
+                <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">DÃ©connectÃ©</button>
                 <audio id="track">
                     <!-- <source src="http://basichow.com/asserts/interlude.mp3" type="audio/mpeg" /> -->
                     <source src="../MortsAndBlesses/Pages/win.mp3"
@@ -75,7 +74,7 @@
                     <article class="congrats">
                         <article class="row">
                             <span><span style="color: yellow;">1</span>Mort! , </span>
-                            <span><span style="color: yellow;"> 2</span>Blessé!</span>
+                            <span><span style="color: yellow;"> 2</span>BlessÃ©!</span>
                         </article>
                     </article>
                 </article>
@@ -92,7 +91,7 @@
                     <article class="congrats">
                         <article class="row" >
                             <span><span style="color: yellow;">1</span>Mort! , </span>
-                            <span><span style="color: yellow;"> 3</span>Blessé!</span>
+                            <span><span style="color: yellow;"> 3</span>BlessÃ©!</span>
                         </article>
                     </article>
                     </article>
@@ -151,7 +150,7 @@
                     <article class="congrats">
                         <article class="row">
                             <span><span style="color: yellow;">`+data.users.user_1.morts+`</span>Mort! , </span>
-                            <span><span style="color: yellow;">`+data.users.user_1.blesses+`</span>Blessé!</span>
+                            <span><span style="color: yellow;">`+data.users.user_1.blesses+`</span>BlessÃ©!</span>
                         </article>
                     </article> </article>`
                     );
@@ -162,7 +161,7 @@
                     <article class="congrats">
                         <article class="row">
                             <span><span style="color: yellow;">`+data.users.user_2.morts+`</span>Mort! , </span>
-                            <span><span style="color: yellow;">`+data.users.user_2.blesses+`</span>Blessé!</span>
+                            <span><span style="color: yellow;">`+data.users.user_2.blesses+`</span>BlessÃ©!</span>
                         </article>
                     </article> </article>`);
                     reset();

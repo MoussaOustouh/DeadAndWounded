@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html;  charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html lang="en">
 
@@ -17,7 +16,7 @@
 <link rel="stylesheet" type="text/css"
 	href="../MortsAndBlesses/Pages/mycss.css" />
 
-<title>Morts et Bléssés - LOGIN</title>
+<title>Morts et BlÃ©ssÃ©s - LOGIN</title>
 </head>
 
 <body>

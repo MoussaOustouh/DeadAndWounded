@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html;  charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html lang="en">
 
@@ -290,10 +289,10 @@
     </div>
     <div>
     	<c:if test="${ jouer.id_u1 != 0 && jouer.id_u2 == 0 && jouer.nombre_u1 == 0 && jouer.nombre_u2 == 0 }">
-    		<h3 style="text-align: center;">Attendez le deuxième joueur ...</h3>
+    		<h3 style="text-align: center;">Attendez le deuxiÃ¨me joueur ...</h3>
     	</c:if>
     	<c:if test="${ (jouer.id_u1 != 0 && jouer.id_u2 != 0) && (jouer.nombre_u1 == 0 || jouer.nombre_u2 == 0)}">
-    		<h3 style="text-align: center;">Attendez le deuxième joueur pour choisir son numéro ...</h3>
+    		<h3 style="text-align: center;">Attendez le deuxiÃ¨me joueur pour choisir son numÃ©ro ...</h3>
     	</c:if>
     	<center><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></center>
     </div>

@@ -57,8 +57,6 @@ public class PageServlet extends HttpServlet {
 			// 7yedo mn les sessions d socket
 			UserSocketSession.removeSessionById(user.getId_u());
 			
-			
-			System.out.println(BackEndRoutes.server+BackEndRoutes.historique_con_logout+"?id_u="+user.getId_u());
 			HttpUtility.newRequest(request, response, BackEndRoutes.server+BackEndRoutes.historique_con_logout+"?id_u="+user.getId_u(), HttpUtility.METHOD_GET, new HashMap<String, String>(),
 					new HttpUtility.Callback() {
 

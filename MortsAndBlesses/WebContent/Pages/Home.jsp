@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html;  charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +13,7 @@
 <link rel="stylesheet" type="text/css"
 	href="../MortsAndBlesses/Pages/mycss.css" />
 
-<title>Document</title>
+<title>Morts et Bl√©ss√©s - √Ä propos</title>
 </head>
 
 <body>
@@ -39,7 +38,7 @@
 
 			</ul>
 			<form class="form-inline my-2 my-lg-0">
-				<button class="btn btn-outline-danger my-2 my-sm-0" type="submit">DÈconnectÈ</button>
+				<button class="btn btn-outline-danger my-2 my-sm-0" type="submit">D√©connect√©</button>
 				<audio id="track">
 					<!-- <source src="http://basichow.com/asserts/interlude.mp3" type="audio/mpeg" /> -->
 					<source
@@ -62,7 +61,7 @@
 	<!-- jambotron  -->
 	<div class="jumbotron">
 		<h1 class="display-4">Bonjour dans Nom de jeux!</h1>
-		<p class="lead">Les rËgles jeux : Lorem ipsum dolor sit amet
+		<p class="lead">Les r√®gles jeux : Lorem ipsum dolor sit amet
 			consectetur adipisicing elit. A cupiditate error enim, obcaecati quis
 			accusantium eligendi aliquam maiores, soluta voluptas recusandae iste
 			nam dolore atque vero sint eveniet necessitatibus laborum.</p>
@@ -73,7 +72,7 @@
 
 	<!-- boody de page -->
 	<div class="container">
-		<h3>SelectionÈ la partie :</h3>
+		<h3>Selection√© la partie :</h3>
 		<div class="float-right">
 			<form class="form-inline">
 				<div class="row">

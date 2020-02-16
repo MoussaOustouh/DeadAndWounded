@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html;  charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +16,7 @@
 <link rel="stylesheet" type="text/css"
 	href="../MortsAndBlesses/Pages/mycss.css" />
 
-<title>Morts et Bléssés - SIGN UP</title>
+<title>Morts et BlÃ©ssÃ©s - SIGN UP</title>
 </head>
 
 <body>
