@@ -1,5 +1,7 @@
 package frontend.game;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.json.Json;
@@ -56,5 +58,34 @@ public class Game {
 	public static boolean didWin(int userNumber, int compareWith) {
 		return userNumber==compareWith;
 	}
+	
+
+	
+	public static java.sql.Time getTimeNow(){
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+	    String time = new SimpleDateFormat("HH:mm:ss").format(timestamp);
+
+	    java.sql.Time oTime=java.sql.Time.valueOf(time);
+	    
+	    return oTime;
+	}
+	
+	public static java.sql.Time getTime(Timestamp timestamp){
+	    String time = new SimpleDateFormat("HH:mm:ss").format(timestamp);
+
+	    java.sql.Time oTime=java.sql.Time.valueOf(time);
+	    
+	    return oTime;
+	}
+	
+	public static java.sql.Time getGemeTime(Timestamp startTime, Timestamp endTime){
+		java.sql.Time startT=getTime(startTime);
+		java.sql.Time endT=getTime(endTime);
+		
+		Timestamp timestamp = new Timestamp(endT.getTime()-startT.getTime());
+	    return getTime(timestamp);
+	    
+	}
+	
 	
 }
