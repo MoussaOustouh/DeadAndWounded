@@ -202,7 +202,11 @@
             }
         }
             function redirect() {
-                window.location.href = "Profile";            }
+                sessionStorage.removeItem("timer");
+            	window.location.href = "Profile";  
+            	    
+            
+            }
 
     </script>
 
@@ -268,11 +272,18 @@
 </script>
 
 
- <script>
+   <script>
             var h1 = document.getElementsByTagName('h4')[0],
+                
                 seconds = 0, minutes = 0, hours = 0,
                 t;
-
+                if(sessionStorage.getItem("timer")){
+                    var time =sessionStorage.getItem("timer");
+                    var data=time.split(":");
+                    hours=data[0];
+                    minutes=data[1];
+                    seconds=data[2];
+                }
             function add() {
                 seconds++;
                 if (seconds >= 60) {
@@ -285,7 +296,7 @@
                 }
 
                 h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
-
+                sessionStorage.setItem("timer", (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds));
                 timer();
             }
             function timer() {

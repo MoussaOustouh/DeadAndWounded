@@ -33,6 +33,10 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Home</a>
                 </li>
+                		<span class="sr-only">(current)</span>
+				</a></li>
+				<li class="nav-item "><a class="nav-link" href="aide">
+						Aide				</a></li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Jeux</a>
                 </li>

@@ -35,6 +35,8 @@
 				<li class="nav-item active"><a class="nav-link" href="#">
 						<span class="sr-only">(current)</span>
 				</a></li>
+				<li class="nav-item active"><a class="nav-link" href="aide">
+						Aide				</a></li>
 
 			</ul>
 			<form class="form-inline my-2 my-lg-0">

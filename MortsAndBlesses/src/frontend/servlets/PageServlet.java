@@ -30,13 +30,15 @@ import frontend.websockets.UserSocketSession;
 /**
  * Servlet implementation class Page
  */
-@WebServlet(urlPatterns= {"/Home","/Profile","/Deconnecte","/Information","/Saisir","/Wait_user"})
+@WebServlet(urlPatterns= {"/Home","/Profile","/Deconnecte","/Information","/Saisir","/Wait_user","/aide"})
 public class PageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+		if(request.getServletPath().toLowerCase().equals("/aide")) {
+			request.getRequestDispatcher("/Pages/aide.jsp").forward(request, response);
+		}
 		if (request.getServletPath().toLowerCase().equals(FrontEndRoutes.deconnecte.toLowerCase())) {
 			HttpServletRequest request1 = (HttpServletRequest) request;
 			HttpSession session = request1.getSession();
