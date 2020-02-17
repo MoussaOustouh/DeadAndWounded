@@ -140,8 +140,8 @@
         }, 2000);
   */
     </script>
-	
-	
+
+
 	<c:if test="${ user_2.id_u!=-1 }">
     <script>
     	var path2="Game_over";
@@ -181,12 +181,18 @@
                 var audio = new Audio('../MortsAndBlesses/Pages/audios/Gameover.mp3');
                 audio.play();
                 
-                $("body").append('<div id="myModal" class="modal fade" role="dialog"><div class="modal-dialog"> <!-- Modal content--><div class="modal-content"><div class="modal-header"><h4 class="modal-title">Fin de Jeux !</h4></div><div class="modal-body"><p>Felicitation <strong>'+ document.getElementById("u_"+data.winners).textContent +'</strong></p></div><div class="modal-footer"><form method="POST" id="game_over_form" action="Game_over"><button type="submit" class="btn btn-default" data-dismiss="modal">Close</button></form></div></div> </div></div> </div>');
+                $("body").append('<div id="myModal" class="modal fade" role="dialog"><div class="modal-dialog"> <!-- Modal content--><div class="modal-content"><div class="modal-header"><h4 class="modal-title">Fin de Jeux !</h4></div><div class="modal-body"><p>Felicitation <strong>'+ document.getElementById("u_"+data.winners).textContent +'</strong></p></div><div class="modal-footer"><form id="game_over_form" action="Game_over"  method="post"><button type="button" class="btn btn-default" onclick="redirect()" data-dismiss="modal">Close</button></form></div></div> </div></div> </div>');
 
                 $("#myModal").modal("show");
                 $('.modal-backdrop').appendTo('body');
 
             }
+        }
+        
+
+        function redirect(){
+        	sessionStorage.removeItem("timer");
+        	document.getElementById("game_over_form").submit();
         }
 
     </script>
@@ -238,18 +244,22 @@
                 var audio = new Audio('../MortsAndBlesses/Pages/audios/Gameover.mp3');
                 audio.play();
                 
-                $("body").append('<div id="myModal" class="modal fade" role="dialog"><div class="modal-dialog"> <!-- Modal content--><div class="modal-content"><div class="modal-header"><h4 class="modal-title">Fin de Jeux !</h4></div><div class="modal-body"><p>Felicitation <strong>'+ document.getElementById("u_"+data.winners).textContent +'</strong></p></div><div class="modal-footer"><form method="POST" id="game_over_form" action="Profile"><button type="submit" class="btn btn-default" data-dismiss="modal">Close</button></form></div></div> </div></div> </div>');
+                $("body").append('<div id="myModal" class="modal fade" role="dialog"><div class="modal-dialog"> <!-- Modal content--><div class="modal-content"><div class="modal-header"><h4 class="modal-title">Fin de Jeux !</h4></div><div class="modal-body"><p>Felicitation <strong>'+ document.getElementById("u_"+data.winners).textContent +'</strong></p></div><div class="modal-footer"><form method="get" id="game_over_form" action="Profile"><button type="button" class="btn btn-default" onclick="redirect()" data-dismiss="modal">Close</button></form></div></div> </div></div> </div>');
 
                 $("#myModal").modal("show");
                 $('.modal-backdrop').appendTo('body');
 
             }
         }
+        
+        function redirect(){
+        	sessionStorage.removeItem("timer");
+        	document.getElementById("game_over_form").submit();
+        }
 
     </script>
 	
 	</c:if>
-
 
 
 

@@ -299,11 +299,12 @@ public class GameServlet extends HttpServlet {
 		
 		else if(request.getServletPath().toLowerCase().equals(FrontEndRoutes.game_over.toLowerCase())) {
 			User user =TokenParse.parse((String)session.getAttribute("token"));
+			session.setAttribute("Gameover", "Gameover");
 			if(session.getAttribute("playing")!=null || session.getAttribute("vs_computer")!=null) {
 				response.sendRedirect("Profile");
 			}
-			else if(request.getParameter("room")!=null) {
-				String room=request.getParameter("room");
+			else if(session.getAttribute("room")!=null) {
+				String room=(String)session.getAttribute("room");
 				jouer=Rooms.getJouer(room);
 				
 				if(user.getId_u()==jouer.getId_u2()) {
@@ -359,6 +360,8 @@ public class GameServlet extends HttpServlet {
 					Historique_jeu hJeu= Rooms.historique_jeuToSave.get(room);
 					Rooms.historique_jeuToSave.remove(room);
 					
+					System.out.println(hJeu.toJSON());
+					
 					params.put("id_u", new String(hJeu.getId_u()+""));
 					params.put("id_adversaire", new String(hJeu.getId_adversaire()+""));
 					params.put("date_et_heure", hJeu.getDate_et_heure().toString());
@@ -381,8 +384,8 @@ public class GameServlet extends HttpServlet {
 		
 		
 		else if(request.getServletPath().toLowerCase().equals(FrontEndRoutes.destroy_room.toLowerCase())) {
-			if (request.getParameter("room")!=null) {
-				Rooms.removeJouer(request.getParameter("room"));
+			if (session.getAttribute("room")!=null) {
+				Rooms.removeJouer((String)session.getAttribute("room"));
 				
 				String room=(String) session.getAttribute("room");
 				HashMap<String, String>params = new HashMap<String, String>();

@@ -103,10 +103,14 @@ public class PageServlet extends HttpServlet {
 					System.out.println(BackEndRoutes.server+BackEndRoutes.jouer_fin+"?room="+jouer.getRoom());
 					toBackEndGet(BackEndRoutes.server+BackEndRoutes.jouer_fin+"?room="+jouer.getRoom(), params, request, response);
 					
-					Rooms.removeJouer((String)session.getAttribute("room"));
+					if(jouer.getId_u2()==0 || jouer.getId_u2()==-1) {
+						Rooms.removeJouer((String)session.getAttribute("room"));
+					}
+					
 					request.setAttribute("room_closed", new Jouer());
 					request.setAttribute("jouer", jouer);
 					session.removeAttribute("room");
+					
 					Rooms.removeUserInRoom(jouer.getRoom(), 1);
 					Rooms.removeUserInRoom(jouer.getRoom(), 2);
 				}
@@ -120,13 +124,15 @@ public class PageServlet extends HttpServlet {
 					Rooms.setJouer(session.getAttribute("room").toString(), jouer);
 					session.removeAttribute("room");
 					Rooms.removeUserInRoom(jouer.getRoom(), 2);
+					
+					jouer=Rooms.getJouer(room);
+					jouer.setId_u2(0);
 				}
 				else {
 					request.setAttribute("room_closed", new Jouer());
 					request.setAttribute("jouer", jouer);
 					
-					session.removeAttribute("room");
-					Rooms.removeJouer((String)session.getAttribute("room"));
+						session.removeAttribute("room");
 				}
 			}
 			

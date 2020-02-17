@@ -169,16 +169,14 @@ public class Rooms {
 	
 	public static Historique_jeu toHistorique_jeu(Jouer jouer, int gagner_1_ou_0) {
 		Historique_jeu hJeu=new Historique_jeu();
-		if (jouer!=null) {
 			hJeu.setId_u(jouer.getId_u1());
 			hJeu.setId_adversaire(jouer.getId_u2());
 			hJeu.setDate_et_heure(jouer.getDate_et_heure());
 			hJeu.setTemps_passe(java.sql.Time.valueOf(new String(Game.getDefeTime(jouer.getDate_et_heure(), new Timestamp(System.currentTimeMillis())).toString())));
 			hJeu.setNombre_de_tours(jouer.getNombre_de_tours());
 			hJeu.setGagner(gagner_1_ou_0);
-		}
-		
-		return null;
+			
+		return hJeu;
 	}
 	
 }
