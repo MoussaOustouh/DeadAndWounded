@@ -24,6 +24,8 @@ public class FrontEndRoutes {
 
 	public static String contre_pc="/Game_against_computer";
 	
+	public static String game_over="/Game_over";
+	
 	
 	
 	//---------------------------------------------------------------------------------------------------------------

@@ -57,7 +57,7 @@ public class BackEndRoutes {
 	// {DELETE} had route mlli aysaliw l jeu ghadi nsift lik {'room'} bach tms7 room
 	// khasni nsift token
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	public static String jouer_fin="jouer/fin";
+	public static String jouer_fin="/jouer/end";
 	
 	
 	//---------------------------------------------------------------------------------------------------------------

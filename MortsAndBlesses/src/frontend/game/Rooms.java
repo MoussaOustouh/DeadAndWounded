@@ -1,21 +1,27 @@
 package frontend.game;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Random;
 
+import frontend.modele.module.Historique_jeu;
 import frontend.modele.module.Jouer;
 import frontend.modele.module.User;
 
 public class Rooms {
 	public static HashMap<String, User> usersInRoom=new HashMap<String, User>();
-	
+
 	public static HashMap<String, Jouer> rooms=new HashMap<String, Jouer>();
+
+	public static HashMap<String, Jouer> roomsToSave=new HashMap<String, Jouer>();
 
 	public static HashMap<String, Boolean> didHePlayed=new HashMap<String, Boolean>();
 	
 	public static HashMap<String, Integer> playersNumber=new HashMap<String, Integer>();
 	
 	public static HashMap<String, Integer> roomsWinners=new HashMap<String, Integer>();
+	
+	public static HashMap<String, Historique_jeu> historique_jeuToSave=new HashMap<String, Historique_jeu>();
 
 	public Rooms() {
 	}
@@ -159,6 +165,20 @@ public class Rooms {
 		if(roomsWinners.containsKey(room)) {
 			roomsWinners.remove(room);
 		}
+	}
+	
+	public static Historique_jeu toHistorique_jeu(Jouer jouer, int gagner_1_ou_0) {
+		Historique_jeu hJeu=new Historique_jeu();
+		if (jouer!=null) {
+			hJeu.setId_u(jouer.getId_u1());
+			hJeu.setId_adversaire(jouer.getId_u2());
+			hJeu.setDate_et_heure(jouer.getDate_et_heure());
+			hJeu.setTemps_passe(java.sql.Time.valueOf(new String(Game.getDefeTime(jouer.getDate_et_heure(), new Timestamp(System.currentTimeMillis())).toString())));
+			hJeu.setNombre_de_tours(jouer.getNombre_de_tours());
+			hJeu.setGagner(gagner_1_ou_0);
+		}
+		
+		return null;
 	}
 	
 }

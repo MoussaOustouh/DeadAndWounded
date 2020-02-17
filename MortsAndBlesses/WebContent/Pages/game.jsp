@@ -38,7 +38,7 @@
                 </li>
 
             </ul>
-            <form methode="GET" action="/MortsAndBlesses/Deconnecte" class="form-inline my-2 my-lg-0">
+            <form methode="GET" action="Deconnecte" class="form-inline my-2 my-lg-0">
                 <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Déconnecté</button>
                <audio id="track">
 					<!-- <source src="http://basichow.com/asserts/interlude.mp3" type="audio/mpeg" /> -->
@@ -66,9 +66,16 @@
         <div class="row" style="margin-right: 10px;">
             <div class="col-sm-2"></div>
             <div class="card col-sm-4 " style="height:30rem; background-color:slategray; color: snow; overflow-y:auto;">
-                <h3 id="u_1" style="margin-bottom: 0px;">${user_1.prenom} ${user_1.nom}</h3>
-                <c:if test="${user.id_u == jouer.id_u1}"><h6 style="margin-bottom: 0px;">Voter nombre <b>${jouer.nombre_u1}</b></h6></c:if>
-                <hr />
+            	<table>
+            		<tr>
+            			<td style="width: 50px; height: 50px;"><img style="width: 50px; height: 50px;" alt="avatar" src="../MortsAndBlesses/Pages/images/avatars/${user_1.image}" ></td>
+            			<td>
+			                <h4 id="u_1" style="margin-bottom: 0px;">${user_1.prenom} ${user_1.nom}</h4>
+			                <h6 style="margin-bottom: 0px;"><c:if test="${user.id_u == jouer.id_u1}">Voter nombre : <b>${jouer.nombre_u1}</b></c:if></h6>
+            			</td>
+            		</tr>
+            	</table>
+            	<hr />
                 <center id="1" >
                     
            
@@ -77,8 +84,15 @@
             </div>
             <div class="col-sm-1"></div>
             <div class="card col-sm-4" style="height:30rem; background-color:slategray; color: snow; overflow-y:auto;">
-                <h3 id="u_2" style="margin-bottom: 0px;">${user_2.prenom} ${user_2.nom}</h3>
-                <c:if test="${user.id_u == jouer.id_u2}"><h6 style="margin-bottom: 0px;">Voter nombre <b>${jouer.nombre_u2}</b></h6></c:if>
+            	<table>
+            		<tr>
+            			<td style="width: 50px; height: 50px;"><img style="width: 50px; height: 50px;" alt="avatar" src="../MortsAndBlesses/Pages/images/avatars/${user_2.image}" ></td>
+            			<td>
+			                <h4 id="u_2" style="margin-bottom: 0px;">${user_2.prenom} ${user_2.nom}</h4>
+			                <h6 style="margin-bottom: 0px;"><c:if test="${user.id_u == jouer.id_u2}">Voter nombre : <b>${jouer.nombre_u2}</b></c:if></h6>
+                		</td>
+            		</tr>
+            	</table>
                 <hr />
                 <center id="2">
                     
@@ -94,10 +108,10 @@
 
                 <div class="row">
                     <div class="col-sm-2"></div>
-                    <input name="input1"  id="input1" class="form-control col-sm-2 " style="margin: 5px;" type="number" max="9" min="0" pattern="[0-9]{4}">
-                    <input name="input2"  id="input2" class="form-control col-sm-2 " style="margin: 5px;" type="number" max="9" min="0" pattern="[0-9]{4}">
-                    <input name="input3"  id="input3" class="form-control col-sm-2 " style="margin: 5px;" type="number" max="9" min="0" pattern="[0-9]{4}">
-                    <input name="input4"  id="input4" class="form-control col-sm-2 " style="margin: 5px;" type="number" max="9" min="0" pattern="[0-9]{4}">
+                    <input name="input1"  id="input1" class="form-control col-sm-2 " style="margin: 5px;" type="number" value="1" max="9" min="1" pattern="[0-9]{4}">
+                    <input name="input2"  id="input2" class="form-control col-sm-2 " style="margin: 5px;" type="number" value="1" max="9" min="1" pattern="[0-9]{4}">
+                    <input name="input3"  id="input3" class="form-control col-sm-2 " style="margin: 5px;" type="number" value="1" max="9" min="1" pattern="[0-9]{4}">
+                    <input name="input4"  id="input4" class="form-control col-sm-2 " style="margin: 5px;" type="number" value="1" max="9" min="1" pattern="[0-9]{4}">
                     <button class="button" type="button" id ="btn" onclick="sendNow()"><svg class="bi bi-cursor" width="1em" height="1em" viewBox="0 0 20 20"
                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
@@ -126,8 +140,11 @@
         }, 2000);
   */
     </script>
-
+	
+	
+	<c:if test="${ user_2.id_u!=-1 }">
     <script>
+    	var path2="Game_over";
         function insert(json) {
             var audio = new Audio('../MortsAndBlesses/Pages/audios/add.mp3');
             var data = JSON.parse(json);
@@ -164,21 +181,74 @@
                 var audio = new Audio('../MortsAndBlesses/Pages/audios/Gameover.mp3');
                 audio.play();
                 
-                $("body").append('<div id="myModal" class="modal fade" role="dialog"><div class="modal-dialog"> <!-- Modal content--><div class="modal-content"><div class="modal-header"><h4 class="modal-title">Fin de Jeux !</h4></div><div class="modal-body"><p>Felicitation <strong>'+ document.getElementById("u_"+data.winners).textContent +'</strong></p></div><div class="modal-footer"><button type="button" class="btn btn-default" onclick="redirect()" data-dismiss="modal">Close</button></div></div> </div></div> </div>');
+                $("body").append('<div id="myModal" class="modal fade" role="dialog"><div class="modal-dialog"> <!-- Modal content--><div class="modal-content"><div class="modal-header"><h4 class="modal-title">Fin de Jeux !</h4></div><div class="modal-body"><p>Felicitation <strong>'+ document.getElementById("u_"+data.winners).textContent +'</strong></p></div><div class="modal-footer"><form method="POST" id="game_over_form" action="Game_over"><button type="submit" class="btn btn-default" data-dismiss="modal">Close</button></form></div></div> </div></div> </div>');
 
                 $("#myModal").modal("show");
                 $('.modal-backdrop').appendTo('body');
 
             }
         }
-            function redirect() {
-                sessionStorage.removeItem("timer");
-            	window.location.href = "Profile";  
-            	    
-            
-            }
 
     </script>
+	
+	</c:if>
+
+
+
+
+
+
+
+	<c:if test="${ user_2.id_u==-1 }">
+    <script>
+    	var path2="Game_over";
+        function insert(json) {
+            var audio = new Audio('../MortsAndBlesses/Pages/audios/add.mp3');
+            var data = JSON.parse(json);
+            if (data.state != "end") {
+                audio.play();
+                $("#1").append(`
+                <article style="margin-bottom:30px;">
+            <h2>`+data.numbers.user_1+`</h2>
+                    <article class="congrats">
+                        <article class="row">
+                            <span><span style="color: yellow;">`+data.users.user_1.morts+`</span>Mort! , </span>
+                            <span><span style="color: yellow;">`+data.users.user_1.blesses+`</span>Blessé!</span>
+                        </article>
+                    </article> </article>`
+                    );
+
+                $("#2").append(`
+                <article style="margin-bottom:30px;">
+            <h2>`+data.numbers.user_2+`</h2>
+                    <article class="congrats">
+                        <article class="row">
+                            <span><span style="color: yellow;">`+data.users.user_2.morts+`</span>Mort! , </span>
+                            <span><span style="color: yellow;">`+data.users.user_2.blesses+`</span>Blessé!</span>
+                        </article>
+                    </article> </article>`);
+                    reset();
+        animateText();
+
+
+
+            }
+            else {
+
+                var audio = new Audio('../MortsAndBlesses/Pages/audios/Gameover.mp3');
+                audio.play();
+                
+                $("body").append('<div id="myModal" class="modal fade" role="dialog"><div class="modal-dialog"> <!-- Modal content--><div class="modal-content"><div class="modal-header"><h4 class="modal-title">Fin de Jeux !</h4></div><div class="modal-body"><p>Felicitation <strong>'+ document.getElementById("u_"+data.winners).textContent +'</strong></p></div><div class="modal-footer"><form method="POST" id="game_over_form" action="Profile"><button type="submit" class="btn btn-default" data-dismiss="modal">Close</button></form></div></div> </div></div> </div>');
+
+                $("#myModal").modal("show");
+                $('.modal-backdrop').appendTo('body');
+
+            }
+        }
+
+    </script>
+	
+	</c:if>
 
 
 
@@ -222,23 +292,23 @@
     var input3 = document.getElementById("input3");
     var input4 = document.getElementById("input4");
     const re = /^[1-9\b]+$/;
-    if ((input1.value !== "" ) || (input2.value !== "" ) || (input3.value !== '') || (input4.value !== '')) {
+    if ((input1.value.trim()!="" ) && (input2.value.trim()!="" ) && (input3.value.trim()!="") && (input4.value.trim()!="")) {
         if (input1.value === input2.value || input1.value === input3.value || input1.value === input4.value || input2.value === input3.value || input2.value === input4.value || input3.value === input4.value) {
-            alert("Ereur des nembres sont egeaux");
+            alert("Erreur des nembres sont égaux.");
         }
         else {
-            if ((input1.value>=0 && input1.value < 10) && (input2.value>=0 && input2.value< 10) && (input3.value>=0 && input3.value <10 )&& (input4.value>=0 && input4.value<10 )) {
+            if ((input1.value>0 && input1.value < 10) && (input2.value>0 && input2.value< 10) && (input3.value>0 && input3.value <10 )&& (input4.value>0 && input4.value<10 )) {
             	document.getElementById("number").value=""+input1.value+input2.value+input3.value+input4.value;
             	//blokihom hna 
             	isSend=true;
             }
             else {
-                alert("Ereur des Nembres sont non compatible avec les regles de jeux");
+                alert("Erreur : des nombres non compatible avec les règles de jeu.");
             }
         }
     }
     else
-        alert("Erreur un ou des champs vide");
+        alert("Erreur un ou des champs vide.");
     }
 
 
@@ -283,8 +353,9 @@
         </script>
         
         
-		<c:if test="${ user.id_u==user_1.id_u || user.id_u==user_2.id_u }">
+		<c:if test="${ user_2.id_u!=-1 }">
     		<script type="text/javascript">
+    			path1="Game_over";
 				var url = (location.host+location.pathname).replace("Game_play", "websocketgame/${jouer.room}/${user.id_u}");
 
 				var webSocket = new WebSocket("ws://"+url);
@@ -307,7 +378,81 @@
 					//  ++ o dir les inputes o lbotona itkwansaw mlli isift l user chi ra9m 7tta tjih on message 3ad iwlliw ikhdmo
 					//  ++ o dir dik lfonction hya lli trje3 dok les input o lbona ikhdmo
 					
-					console.log(event.data);
+					$('#btn').removeAttr('disabled');
+					$('#input1').removeAttr('disabled');
+					$('#input2').removeAttr('disabled');
+					$('#input3').removeAttr('disabled');
+					$('#input4').removeAttr('disabled');
+
+					insert(event.data);
+					
+					
+				}
+		
+				function onOpen(event) {
+					
+				}
+		
+				function onError(event) {
+					location.href=(location.protocol+"//"+location.host+location.pathname).replace("Game_play", "Profile");
+				}
+
+				function send(a) {
+					webSocket.send(a);
+				}
+				function sendNow(){
+					isSend=false;
+	    			virification ();
+	    			
+	    			if(isSend){
+	    				let jj={};
+	    				jj.number=document.getElementById("number").value;
+	    				webSocket.send(JSON.stringify(jj));
+
+						$('#btn').attr('disabled','none');
+						$('#input1').attr('disabled','none');
+						$('#input2').attr('disabled','none');
+						$('#input3').attr('disabled','none');
+						$('#input4').attr('disabled','none');
+	    			    document.getElementById("input1").value="";
+	    			    document.getElementById("input2").value="";
+	    			    document.getElementById("input3").value="";
+	    			    document.getElementById("input4").value="";
+	    			    
+	    			}
+	    		}
+			</script>
+    	</c:if>
+    	
+    	
+    	
+        
+        
+		<c:if test="${ user_2.id_u==-1 }">
+    		<script type="text/javascript">
+    			path1="Profile";
+				var url = (location.host+location.pathname).replace("Game_play", "websocketgamepc/${jouer.room}/${user.id_u}");
+
+				var webSocket = new WebSocket("ws://"+url);
+		
+				webSocket.onerror = function(event) {
+					onError(event);
+				};
+		
+				webSocket.onopen = function(event) {
+					onOpen(event);
+				};
+		
+				webSocket.onmessage = function(event) {
+					onMessage(event);
+				};
+		
+				function onMessage(event) {
+					//had event.data hiya l message json lli kayjik dak json 3layach taf9na 
+					//db nta 9ad dik lfonction dyal bach t3tiha dak json o hiya t9adhom f lbloc
+					//  ++ o dir les inputes o lbotona itkwansaw mlli isift l user chi ra9m 7tta tjih on message 3ad iwlliw ikhdmo
+					//  ++ o dir dik lfonction hya lli trje3 dok les input o lbona ikhdmo
+					
 					$('#btn').removeAttr('disabled');
 					$('#input1').removeAttr('disabled');
 					$('#input2').removeAttr('disabled');

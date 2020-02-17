@@ -14,8 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.coyote.Request;
-
 import backend.routes.BackEndRoutes;
 import frontend.crypt.Hash;
 import frontend.game.Game;
@@ -33,13 +31,18 @@ import frontend.websockets.UserSocketSession;
 @WebServlet(urlPatterns= {"/Home","/Profile","/Deconnecte","/Information","/Saisir","/Wait_user","/aide"})
 public class PageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private HttpSession session;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if(request.getServletPath().toLowerCase().equals("/aide")) {
+		session=request.getSession();
+		if (session.getAttribute("token")==null) {
+			response.sendRedirect("Login");
+		}
+		else if(request.getServletPath().toLowerCase().equals("/aide")) {
 			request.getRequestDispatcher("/Pages/aide.jsp").forward(request, response);
 		}
-		if (request.getServletPath().toLowerCase().equals(FrontEndRoutes.deconnecte.toLowerCase())) {
+		else if (request.getServletPath().toLowerCase().equals(FrontEndRoutes.deconnecte.toLowerCase())) {
 			HttpServletRequest request1 = (HttpServletRequest) request;
 			HttpSession session = request1.getSession();
 			System.out.println("session: " + session.getAttribute("token"));
@@ -76,10 +79,7 @@ public class PageServlet extends HttpServlet {
 			response.sendRedirect("Login");
 
 		}
-
-		
-		
-		if (request.getServletPath().toLowerCase().equals(FrontEndRoutes.home.toLowerCase())) {
+		else if (request.getServletPath().toLowerCase().equals(FrontEndRoutes.home.toLowerCase())) {
 			HttpServletRequest request1 = (HttpServletRequest) request;
 			HttpSession session = request1.getSession();
 			System.out.println("session: " + session.getAttribute("token"));
@@ -89,24 +89,32 @@ public class PageServlet extends HttpServlet {
 				response.sendRedirect("Login");
 
 		}
-
-		if (request.getServletPath().toLowerCase().equals(FrontEndRoutes.profile.toLowerCase())) {
-			HttpServletRequest request1 = (HttpServletRequest) request;
-			HttpSession session = request1.getSession();
+		else if (request.getServletPath().toLowerCase().equals(FrontEndRoutes.profile.toLowerCase())) {
+			session = request.getSession();
 			
-			// ila mcha lprofile room lli kan fiha ate7yed
+			session.removeAttribute("playing");
 			if(session.getAttribute("room")!=null) {
 				Jouer jouer=Rooms.getJouer(session.getAttribute("room").toString());
 				User user =TokenParse.parse((String)session.getAttribute("token"));
 				
-				if(jouer!=null && user.getId_u()==jouer.getId_u1()) {
+				if(jouer!=null && user.getId_u()==jouer.getId_u1() ) {
+					String room=(String) session.getAttribute("room");
+					HashMap<String, String>params = new HashMap<String, String>();
+					System.out.println(BackEndRoutes.server+BackEndRoutes.jouer_fin+"?room="+jouer.getRoom());
+					toBackEndGet(BackEndRoutes.server+BackEndRoutes.jouer_fin+"?room="+jouer.getRoom(), params, request, response);
+					
 					Rooms.removeJouer((String)session.getAttribute("room"));
 					request.setAttribute("room_closed", new Jouer());
 					request.setAttribute("jouer", jouer);
 					session.removeAttribute("room");
 					Rooms.removeUserInRoom(jouer.getRoom(), 1);
+					Rooms.removeUserInRoom(jouer.getRoom(), 2);
 				}
 				else if(jouer!=null && user.getId_u()==jouer.getId_u2()){
+					String room=(String) session.getAttribute("room");
+					HashMap<String, String>params = new HashMap<String, String>();
+					toBackEndGet(BackEndRoutes.server+BackEndRoutes.jouer_fin+"?room="+jouer.getRoom(), params, request, response);
+					
 					jouer.setId_u2(0);
 					jouer.setNombre_u2(0);
 					Rooms.setJouer(session.getAttribute("room").toString(), jouer);
@@ -116,10 +124,9 @@ public class PageServlet extends HttpServlet {
 				else {
 					request.setAttribute("room_closed", new Jouer());
 					request.setAttribute("jouer", jouer);
+					
 					session.removeAttribute("room");
 					Rooms.removeJouer((String)session.getAttribute("room"));
-					Rooms.removeUserInRoom(jouer.getRoom(), 1);
-					Rooms.removeUserInRoom(jouer.getRoom(), 2);
 				}
 			}
 			
@@ -132,11 +139,8 @@ public class PageServlet extends HttpServlet {
 				response.sendRedirect("Login");
 
 		}
-		
-
-		if (request.getServletPath().toLowerCase().equals(FrontEndRoutes.mise_ajour.toLowerCase())) {
-			HttpServletRequest request1 = (HttpServletRequest) request;
-			HttpSession session = request1.getSession();
+		else if (request.getServletPath().toLowerCase().equals(FrontEndRoutes.mise_ajour.toLowerCase())) {
+			session = request.getSession();
 			if (session.getAttribute("token") != null) {
 				User user =TokenParse.parse((String)session.getAttribute("token"));
 				request.setAttribute("user", user);
@@ -146,24 +150,19 @@ public class PageServlet extends HttpServlet {
 				response.sendRedirect("Login");
 
 		}
-		
-		if (request.getServletPath().toLowerCase().equals(FrontEndRoutes.wait_user.toLowerCase())) {
+		else if (request.getServletPath().toLowerCase().equals(FrontEndRoutes.wait_user.toLowerCase())) {
 			HttpServletRequest request1 = (HttpServletRequest) request;
 			HttpSession session = request1.getSession();
 			System.out.println("session: " + session.getAttribute("token"));
 			request.getRequestDispatcher("/Pages/wait_user.jsp").forward(request, response);
 		}
-		
-		
-		if (request.getServletPath().toLowerCase().equals(FrontEndRoutes.page_saisir.toLowerCase())) {
-			HttpServletRequest request1 = (HttpServletRequest) request;
-			HttpSession session = request1.getSession();
-			System.out.println("session: " + session.getAttribute("token"));
-		if (session.getAttribute("token") != null) {
+		else if (request.getServletPath().toLowerCase().equals(FrontEndRoutes.page_saisir.toLowerCase())) {
+			session = request.getSession();
+			if (session.getAttribute("token") != null) {
 				request.getRequestDispatcher("/Pages/saisir.jsp").forward(request, response);
-				}
-		 else
-				response.sendRedirect("/MortsAndBlesses/Login");
+			}
+			else
+				response.sendRedirect("Login");
 
 		}
 		
@@ -171,7 +170,12 @@ public class PageServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (request.getServletPath().toLowerCase().equals(FrontEndRoutes.mise_ajour.toLowerCase())) {
+
+		session=request.getSession();
+		if (session.getAttribute("token")==null) {
+			response.sendRedirect("Login");
+		}
+		else if (request.getServletPath().toLowerCase().equals(FrontEndRoutes.mise_ajour.toLowerCase())) {
 			HttpServletRequest request1 = (HttpServletRequest) request;
 			HttpSession session = request1.getSession();
 			User myuser =TokenParse.parse((String)session.getAttribute("token"));
@@ -194,7 +198,7 @@ public class PageServlet extends HttpServlet {
 				params.put("date_de_naissance", request.getParameter("date_de_naissance"));
 				params.put("email", request.getParameter("email"));
 				params.put("prenom", request.getParameter("prenom"));
-				params.put("image", myuser.getImage());
+				params.put("image", "avatar3.png");
 				params.put("parties_perdues", myuser.getParties_perdues()+"");
 				params.put("parties_gagnees", myuser.getParties_gagnees()+"");
 				params.put("pourcentage_reussite", myuser.getPourcentage_reussite()+"");
@@ -286,5 +290,23 @@ public class PageServlet extends HttpServlet {
 			}
 		}
 	}
+	
+	
+
+	
+	public void toBackEndGet(String url, HashMap<String, String> params, HttpServletRequest request, HttpServletResponse response) {
+		HttpUtility.newRequest(request, response, url, HttpUtility.METHOD_GET, params, new HttpUtility.Callback() {
+		
+					@Override
+					public void OnSuccess(String respons) {
+					}
+		
+					@Override
+					public void OnError(int status_code, String message) {
+						System.out.println("error = "+message);
+					}
+				});
+	}
+
 
 }

@@ -59,13 +59,13 @@
             	<form method="POST" action="Game_choose_nombre"  name="formSaisie" >
             		<br>
 		                <div class="row">
-		                    <div class="col-3 "><input name="input1" min="0" max="9"  class="form-control" type="number"
+		                    <div class="col-3 "><input name="input1" min="1" value="1" max="9"  class="form-control" type="number"
 		                            id="input1" /></div>
-		                    <div class="col-3 "><input name="input2" min="0" max="9" class="form-control" type="number"
+		                    <div class="col-3 "><input name="input2" min="1" value="1" max="9" class="form-control" type="number"
 		                            id="input2" /></div>
-		                    <div class="col-3 "><input name="input3" min="0" max="9" class="form-control" type="number"
+		                    <div class="col-3 "><input name="input3" min="1" value="1" max="9" class="form-control" type="number"
 		                            id="input3" /></div>
-		                    <div class="col-3 "><input name="input4" min="0" max="9" class="form-control" type="number"
+		                    <div class="col-3 "><input name="input4" min="1" value="1" max="9" class="form-control" type="number"
 		                            id="input4" /></div>
 		                            
 		                            <input type="hidden" id="number" name="number" value="">
@@ -85,13 +85,13 @@
             	<form method="POST" action="Game_against_computer"  name="formSaisie" >
             		<br>
 		                <div class="row">
-		                    <div class="col-3 "><input name="input1" min="0" max="9"  class="form-control" type="number"
+		                    <div class="col-3 "><input name="input1" value="1" min="1" max="9"  class="form-control" type="number"
 		                            id="input1" /></div>
-		                    <div class="col-3 "><input name="input2" min="0" max="9" class="form-control" type="number"
+		                    <div class="col-3 "><input name="input2" value="1" min="1" max="9" class="form-control" type="number"
 		                            id="input2" /></div>
-		                    <div class="col-3 "><input name="input3" min="0" max="9" class="form-control" type="number"
+		                    <div class="col-3 "><input name="input3" value="1" min="1" max="9" class="form-control" type="number"
 		                            id="input3" /></div>
-		                    <div class="col-3 "><input name="input4" min="0" max="9" class="form-control" type="number"
+		                    <div class="col-3 "><input name="input4" value="1" min="1" max="9" class="form-control" type="number"
 		                            id="input4" /></div>
 		                            
 		                            <input type="hidden" id="number" name="number" value="">
@@ -129,23 +129,23 @@
 	        var input2 = document.getElementById("input2");
 	        var input3 = document.getElementById("input3");
 	        var input4 = document.getElementById("input4");
-	        const re = /^[0-9\b]+$/;
-	        if ((input1.value !== "" ) || (input2.value !== "" ) || (input3.value !== '') || (input4.value !== '')) {
+	        const re = /^[1-9\b]+$/;
+	        if ((input1.value.trim()!="" ) && (input2.value.trim()!="" ) && (input3.value.trim()!="") && (input4.value.trim()!="")) {
 	            if (input1.value === input2.value || input1.value === input3.value || input1.value === input4.value || input2.value === input3.value || input2.value === input4.value || input3.value === input4.value) {
-	                alert("Ereur des nembres sont egeaux");
+	                alert("Erreur des nembres sont égaux.");
 	            }
 	            else {
-	                if ((input1.value >= 0 && input1.value <= 9) && (input2.value >= 0 && input2.value <= 9 ) && (input3.value >= 0 && input3.value  <= 9 )&& (input4.value >= 0 && input4.value <= 9 )) {
+	                if ((input1.value > 0 && input1.value <= 9) && (input2.value > 0 && input2.value <= 9 ) && (input3.value > 0 && input3.value  <= 9 )&& (input4.value > 0 && input4.value <= 9 )) {
 	                	document.getElementById("number").value=""+input1.value+input2.value+input3.value+input4.value;
 	                	document.formSaisie.submit();
 	                }
 	                else {
-	                    alert("Ereur des Nembres sont non compatible avec les regles de jeux");
+	                    alert("Erreur : des nombres non compatible avec les règles de jeu.");
 	                }
 	            }
 	        }
 	        else {
-	            alert("Ereur un ou des champs vide");
+	            alert("Erreur un ou des champs vide.");
 	        }
         }
 

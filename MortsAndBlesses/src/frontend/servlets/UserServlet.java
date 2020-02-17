@@ -7,14 +7,12 @@ import java.util.HashMap;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.server.ServerEndpoint;
 
 import backend.routes.BackEndRoutes;
 import frontend.crypt.Hash;
@@ -22,16 +20,18 @@ import frontend.routes.FrontEndRoutes;
 import frontend.tools.HttpUtility;
 
 
-@WebServlet(urlPatterns = { "/Login", "/Register", "/Users", "/Users/profile", "/Users/edit", "/Users/delete",
-		"/Register_check_username", "/Register_check_email" })
+@WebServlet(urlPatterns = { "/Login", "/Register" })
 public class UserServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private HttpSession session;
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		session=request.getSession();
 		if (request.getServletPath().toLowerCase().equals(FrontEndRoutes.register.toLowerCase())) {
 			HttpServletRequest request1 = (HttpServletRequest) request;
-			HttpSession session = request1.getSession();
+			session = request1.getSession();
 			System.out.println("session: " + session.getAttribute("token"));
 			if (session.getAttribute("token") != null) {
 				response.sendRedirect("Profile");
@@ -39,9 +39,9 @@ public class UserServlet extends HttpServlet {
 			else
 				request.getRequestDispatcher("/Pages/singup.jsp").forward(request, response);
 		}
-		if (request.getServletPath().toLowerCase().equals(FrontEndRoutes.login.toLowerCase())) {
+		else if (request.getServletPath().toLowerCase().equals(FrontEndRoutes.login.toLowerCase())) {
 			HttpServletRequest request1 = (HttpServletRequest) request;
-			HttpSession session = request1.getSession();
+			session = request1.getSession();
 			System.out.println("session: " + session.getAttribute("token"));
 			if (session.getAttribute("token") != null) {
 				response.sendRedirect("Profile");
@@ -50,6 +50,9 @@ public class UserServlet extends HttpServlet {
 				request.getRequestDispatcher("/Pages/login.jsp").forward(request, response);
 			}
 		}
+		else if (session.getAttribute("token")==null) {
+			response.sendRedirect("Login");
+		} 
 
 	}
 

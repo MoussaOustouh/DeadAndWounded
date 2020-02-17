@@ -17,20 +17,20 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
+import frontend.game.Computer;
 import frontend.game.Game;
 import frontend.game.Rooms;
 import frontend.modele.module.Jouer;
 
 
-@ServerEndpoint("/websocketgame/{room}/{id_u}")
-public class WebSocketGame {
+@ServerEndpoint("/websocketgamepc/{room}/{id_u}")
+public class WebSocketGamePC {
 	
 	private JsonReader jr;
 	private JsonObject jo;
 	private JsonArray ja;
 	private JsonObjectBuilder job;
 	private JsonArrayBuilder jab;
-	
 	
 	@OnMessage
     public void onMessage(String message, Session session, @PathParam("room") String room, @PathParam("id_u") int id_u) throws IOException {
@@ -43,11 +43,10 @@ public class WebSocketGame {
 		if (jo.containsKey("number") && jouer!=null) {
 			if(id_u==jouer.getId_u1()) {
 				Rooms.hePlayed(room, true, 1);
-				Rooms.addPlayerNumber(room, Integer.parseInt(jo.getString("number")), 1);
-			}
-			else if(id_u==jouer.getId_u2()) {
 				Rooms.hePlayed(room, true, 2);
-				Rooms.addPlayerNumber(room, Integer.parseInt(jo.getString("number")), 2);
+				
+				Rooms.addPlayerNumber(room, Integer.parseInt(jo.getString("number")), 1);
+				Rooms.addPlayerNumber(room, Computer.generateNumber(), 2);
 			}
 			
 			if(Rooms.didBothPlayed(room)) {
@@ -86,14 +85,7 @@ public class WebSocketGame {
 				}
 				
 				if (state=="end") {
-					Rooms.addRoomWinner(room, winner);
-					
-					int i=-1;
-					if (winner==2) { i=0; }
-					else if (winner==1){ i=1; }
-					else if (winner==0){ i=-1; }
-					
-					Rooms.historique_jeuToSave.put(room, Rooms.toHistorique_jeu(jouer, i));
+					Rooms.removeJouer(room);
 				}
 				
 				job=Json.createObjectBuilder();
@@ -109,7 +101,6 @@ public class WebSocketGame {
 				jo=job.build();
 				
 				UserSocketSession.getSessionById(jouer.getId_u1()).getBasicRemote().sendText(jo.toString());
-				UserSocketSession.getSessionById(jouer.getId_u2()).getBasicRemote().sendText(jo.toString());
 				
 				
 			}

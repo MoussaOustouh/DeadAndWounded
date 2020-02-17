@@ -8,6 +8,8 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 
+import frontend.modele.module.User;
+
 
 public class Game {
 	
@@ -78,13 +80,36 @@ public class Game {
 	    return oTime;
 	}
 	
-	public static java.sql.Time getGemeTime(Timestamp startTime, Timestamp endTime){
+	public static java.sql.Time getDefeTime(Timestamp startTime, Timestamp endTime){
 		java.sql.Time startT=getTime(startTime);
 		java.sql.Time endT=getTime(endTime);
 		
 		Timestamp timestamp = new Timestamp(endT.getTime()-startT.getTime());
 	    return getTime(timestamp);
 	    
+	}
+	
+	public static User winnerUser(User user) {
+		if(user!=null) {
+			user.setPoints(user.getPoints()+2);
+			user.setParties_gagnees(user.getParties_gagnees()+1);
+			user.setPourcentage_reussite(((float)(user.getParties_gagnees()*100)/(float)(user.getParties_gagnees()+user.getParties_perdues())));
+			
+			return user;
+		}
+		
+		return null;
+	}
+	
+	public static User loserUser(User user) {
+		if(user!=null) {
+			user.setParties_gagnees(user.getParties_perdues()+1);
+			user.setPourcentage_reussite(((float)(user.getParties_gagnees()*100)/(float)(user.getParties_gagnees()+user.getParties_perdues())));
+			
+			return user;
+		}
+		
+		return null;
 	}
 	
 	

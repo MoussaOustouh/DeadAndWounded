@@ -20,7 +20,7 @@ public class User implements java.io.Serializable  {
 	private int parties_gagnees;
 	private int parties_perdues;
 	private int etat;
-	private int pourcentage_reussite;
+	private float pourcentage_reussite;
 
 
 	public User() {
@@ -169,11 +169,11 @@ public class User implements java.io.Serializable  {
 		this.etat=etat;
 	}
 
-	public int getPourcentage_reussite(){
+	public float getPourcentage_reussite(){
 		return pourcentage_reussite;
 	}
 
-	public void setPourcentage_reussite(int pourcentage_reussite){
+	public void setPourcentage_reussite(float pourcentage_reussite){
 		this.pourcentage_reussite=pourcentage_reussite;
 	}
 
